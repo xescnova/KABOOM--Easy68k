@@ -1,0 +1,40 @@
+; =============================================================================
+; GAME VARS
+; =============================================================================
+
+; TO DO: DECLARE GAME VARIABLES HERE.
+
+
+; --- GAME STATE RELATED VARIABLES --------------------------------------------
+
+STACUR      DS.W    1                       ; CURRENT GAME STATE
+STANEXT     DS.W    1                       ; NEXT GAME STATE
+
+; --- PLAYER RELATED VARIABLES ------------------------------------------------
+
+PLRPOSX     DS.W    1                       ; PLAYER X POSITION  (PIXELS) 
+PLRPOSY     DS.W    1                       ; PLAYER Y POSITION  (PIXELS)
+PLRSCORE    DS.W    1                       ; PLAYER SCORE
+
+PLRDMG      DS.B    1                       ; BIT0: UPD DAMAGE, BIT1 PLOT DMG
+            DS.W    0
+
+; --- BOMBMAN RELATED VARIABLES ------------------------------------------------
+
+BMANPOSX     DS.W    1                       ; BOMBMAN X POSITION  (PIXELS) 
+BMANPOSY     DS.W    1                       ; BOMBMAN Y POSITION  (PIXELS)
+BMNSPEED     DS.W    1                       ; BOMBMAN SPEED (PIXELS PER INT)
+
+; --- UTILITY VARIABLES ------------------------------------------------------
+
+UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
+            DS.W    0
+
+
+
+
+
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~
