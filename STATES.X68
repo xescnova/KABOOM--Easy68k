@@ -39,6 +39,7 @@ STAUPD
             MOVEM.L (A7)+,D0/A0
             RTS
 .INITBL     DC.L    STAINTRI,STAPLAYI,STAEMPTY
+*.INITBL     DC.L    STAINTRI,STAPLAYI,BMNINIT,STAEMPTY
 .UPDTBL     DC.L    STAINTRU,STAPLAYU,STAGOVRU
 
 ; -----------------------------------------------------------------------------
@@ -87,6 +88,7 @@ STAPLAYU
 ; -----------------------------------------------------------------------------
             JSR     PLRUPD
             JSR     SPWUPD
+*            JSR     BMNUPD
             BRA     AGLUPD
 
 ; -----------------------------------------------------------------------------
@@ -98,6 +100,7 @@ STAPLAYP
 ; -----------------------------------------------------------------------------
             JSR     AGLPLOT
             BRA     PLRPLOT
+*            BRA     BMNPLOT
 
 ; -----------------------------------------------------------------------------
 STAINTRI    EQU     DMMINIT
@@ -179,6 +182,7 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
 
 *~Font name~Courier New~
 *~Font size~10~

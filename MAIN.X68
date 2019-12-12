@@ -8,7 +8,7 @@
 
 ; --- CODE INCLUDES -----------------------------------------------------------
 
-             INCLUDE "SYSCONST.X68"          ; SYSTEM CONSTANTS
+            INCLUDE "SYSCONST.X68"          ; SYSTEM CONSTANTS
             INCLUDE "SYSTEM.X68"            ; SYSTEM CODE
             INCLUDE "CONST.X68"             ; USER CONSTANTS
             INCLUDE "UTIL.X68"              ; UTILITY MACRO AND SUBROUTINES
@@ -19,6 +19,7 @@
             INCLUDE "SPAWNER.X68"           ; SPAWNER (CREATES ASTEROIDS)
             INCLUDE "XPLOSION.X68"          ; EXPLOSION AGENT MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
+            INCLUDE "BOMBMAN.X68"           ; BOMBMAN MANEGEMENT
 
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
@@ -32,7 +33,6 @@ START       JSR     SYSINIT
 ; --- UPDATE ------------------------------------------------------------------
 
 .LOOP       TRAP    #KBDTRAP                ; READ KEYBOARD
-
             ; TO DO: CALL GAME UPDATE CODE HERE
             JSR     STAUPD                  ; UPDATE DEPENDING ON THE STATE
 
@@ -56,6 +56,7 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
 
 *~Font name~Courier New~
 *~Font size~10~

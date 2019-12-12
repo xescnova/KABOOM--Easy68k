@@ -76,8 +76,8 @@ GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
 BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH  (PIXELS)
 BMNHEIGH   EQU     30                      ;BOMBMAN HEIGHT (PIXELS)
-
-
+BMNSPEED   EQU     5                       ;BOMBMAN SPEED (PIXELS PER INT)
+BMNNRMCL   EQU     $0000AEFF               ;BOMBMAN NORMAL COLOR
 
 
 
