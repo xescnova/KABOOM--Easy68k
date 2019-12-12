@@ -31,29 +31,29 @@ PLRUPD
 .NODMG      MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
             ROR.B   #1,D1
-            BCC     .CHKUP
+            BCC     .CHKRT
             SUB.W   #PLRSPEED,(PLRPOSX)
             TST.W   (PLRPOSX)
-            BGE     .CHKUP
-            CLR.W   (PLRPOSX)
-.CHKUP      ROR.B   #1,D1
-            BCC     .CHKRT
-            SUB.W   #PLRSPEED,(PLRPOSY)
-            TST.W   (PLRPOSY)
             BGE     .CHKRT
-            CLR.W   (PLRPOSY)
-.CHKRT      ROR.B   #1,D1
-            BCC     .CHKDN
+            CLR.W   (PLRPOSX)
+*.CHKUP      ROR.B   #1,D1
+*            BCC     .CHKRT
+*            SUB.W   #PLRSPEED,(PLRPOSY)
+*            TST.W   (PLRPOSY)
+*            BGE     .CHKRT
+*            CLR.W   (PLRPOSY)
+.CHKRT      ROR.B   #2,D1
+            BCC     .MDONE
             ADD.W   #PLRSPEED,(PLRPOSX)
             CMP.W   #SCRWIDTH-PLRWIDTH,(PLRPOSX)
-            BLE     .CHKDN
-            MOVE.W  #SCRWIDTH-PLRWIDTH,(PLRPOSX)
-.CHKDN      ROR.B   #1,D1
-            BCC     .MDONE
-            ADD.W   #PLRSPEED,(PLRPOSY)
-            CMP.W   #SCRHEIGH-PLRHEIGH,(PLRPOSY)
             BLE     .MDONE
-            MOVE.W  #SCRHEIGH-PLRHEIGH,(PLRPOSY)
+            MOVE.W  #SCRWIDTH-PLRWIDTH,(PLRPOSX)
+*.CHKDN      ROR.B   #1,D1
+*            BCC     .MDONE
+*            ADD.W   #PLRSPEED,(PLRPOSY)
+*            CMP.W   #SCRHEIGH-PLRHEIGH,(PLRPOSY)
+*            BLE     .MDONE
+*            MOVE.W  #SCRHEIGH-PLRHEIGH,(PLRPOSY)
 .MDONE      BTST.B  #KBDBITF1,(KBDEDGE)
             BEQ     .NOFIRE
             MOVEM.L A1-A3/D0-D2,-(A7)
@@ -87,14 +87,14 @@ PLRPLOT
             
             MOVE.W  (PLRPOSX),D1            ; PLOT THE PLAYER
             MOVE.W  (PLRPOSY),D2
+            
             MOVE.W  D1,D3
             MOVE.W  D2,D4
-            ADD.W   #PLRWIDTH/2,D3
-            ADD.W   #PLRHEIGH/2,D4
-            MOVE.B  #88,D0
-            TRAP    #15
-
-            SUB.W   #PLRWIDTH/2,D3
+            ADD.W   #PLRWIDTH,D3
+            ADD.W   #PLRHEIGH,D4
+*            MOVE.B  #88,D0
+*            TRAP    #15
+*            SUB.W   #PLRWIDTH/2,D3
             MOVE.B  #87,D0
             TRAP    #15
 
@@ -123,6 +123,7 @@ PLRPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 
