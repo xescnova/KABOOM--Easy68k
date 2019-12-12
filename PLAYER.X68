@@ -10,12 +10,12 @@ PLRINIT
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVE.W  #SCRWIDTH/2,(PLRPOSX)
-            MOVE.W  #(SCRHEIGH-PLRHEIGH)-100,(PLRPOSY)
-            MOVE.W  #PLRCLIFE,(PLRLIFE)
+            MOVE.W  #(SCRHEIGH-PLRHEIGH)-50,(PLRPOSY)
+            MOVE.W  #PLRINIEN,(PLRENER)
             CLR.W   (PLRSCORE)
             CLR.W   (PLRDMG)
             RTS
-            
+
 ; -----------------------------------------------------------------------------
 PLRUPD
 ; UPDATES THE PLAYER MOTION
@@ -25,8 +25,8 @@ PLRUPD
 ; -----------------------------------------------------------------------------
             BCLR.B  #PLRUBDMG,(PLRDMG)
             BEQ     .NODMG
-            SUB.W   #PLRCLIFE,(PLRLIFE)
-            BNE     .NODMG
+            SUB.W   #ASTDMG,(PLRENER)
+            BGT     .NODMG
             MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
 .NODMG      MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
@@ -67,6 +67,65 @@ PLRUPD
             MOVEM.L (A7)+,A1-A3/D0-D2
 .NOFIRE     MOVE.W  (A7)+,D1
             RTS
+
+; -----------------------------------------------------------------------------
+PLRPLOT
+; PLOTS THE PLAYER ITS LIFE AND THE SCORE
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------
+            MOVEM.L D0-D4,-(A7)
+            MOVE.L  #PLRNRMCL,D1            ; DECIDE COLOR
+            BCLR.B  #PLRPBDMG,(PLRDMG)
+            BEQ     .NODMG
+            MOVE.L  #PLRDMGCL,D1
+.NODMG      MOVE.B  #80,D0
+            TRAP    #15
+            ADDQ.B  #1,D0
+            TRAP    #15
+            
+            MOVE.W  (PLRPOSX),D1            ; PLOT THE PLAYER
+            MOVE.W  (PLRPOSY),D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #PLRWIDTH/2,D3
+            ADD.W   #PLRHEIGH/2,D4
+            MOVE.B  #88,D0
+            TRAP    #15
+
+            SUB.W   #PLRWIDTH/2,D3
+            MOVE.B  #87,D0
+            TRAP    #15
+
+            UTLSPEN #PLRTXTCL               ; PLOT THE SCORE TEXT
+            UTLSFIL #$00000000
+            UTLLOCT PLRTXTX,PLRTXTY
+            LEA     .SCORESTR,A1
+            CLR.L   D1
+            MOVE.W  (PLRSCORE),D1
+            MOVE.B  #17,D0
+            TRAP    #15
+
+            UTLSPEN #$00FFFFFF              ; PLOT LIFE
+            UTLSFIL #PLRLIFEC
+            MOVE.W  #(SCRWIDTH-PLRINIEN)/2,D1
+            MOVE.W  #PLRLIFEY,D2
+            MOVE.W  (PLRENER),D3
+            ADD.W   D1,D3
+            MOVE.W  #PLRLIFEY+PLRLIFEH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            MOVE.W  #(SCRWIDTH+PLRINIEN)/2,D3
+            MOVE.B  #90,D0
+            TRAP    #15
+
+            MOVEM.L (A7)+,D0-D4
+            RTS
+.SCORESTR   DC.B    'SCORE: ',0
+
+
+
 
 
 

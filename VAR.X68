@@ -12,9 +12,12 @@ STANEXT     DS.W    1                       ; NEXT GAME STATE
 
 ; --- PLAYER RELATED VARIABLES ------------------------------------------------
 
-PLRPOSX     DS.W    1                       ; PLAYER X POSITION  (PIXELS) 
-PLRPOSY     DS.W    1                       ; PLAYER Y POSITION  (PIXELS)
+PLRPOSX     DS.W    1                       ; PLAYER X POSITION (PIXELS)
+PLRPOSY     DS.W    1                       ; PLAYER Y POSITION (PIXELS)
+PLRENER     DS.W    1                       ; PLAYER ENERGY
 PLRSCORE    DS.W    1                       ; PLAYER SCORE
+
+
 PLRLIFE     DS.W    1                       ; PLAYER IN GAME LIFE
 
 PLRDMG      DS.B    1                       ; BIT0: UPD DAMAGE, BIT1 PLOT DMG
