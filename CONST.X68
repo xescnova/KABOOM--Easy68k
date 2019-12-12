@@ -22,11 +22,15 @@ PLRNRMCL    EQU     $0000C0FF               ; PLAYER NORMAL COLOR
 PLRTXTCL    EQU     $00FFFFFF               ; FONT COLOR
 PLRTXTX     EQU     2                       ; SCORE X COORDINATE
 PLRTXTY     EQU     1                       ; SCORE Y COORDINATE
-
+PLRUMDMG    EQU     %00000001               ; UPDATE DAMAGE MASK
+PLRPMDMG    EQU     %00000010               ; PLOT DAMAGE MASK
+PLRUBDMG    EQU     0                       ; UPDATE DAMAGE BIT
+PLRPBDMG    EQU     1                       ; PLOT DAMAGE BIT
+PLRCLIFE    EQU     3                       ; PLAYER CONSTANT LIFE 
 
 ; --- BOMBMAN RELATED CONSTANTS ------------------------------------------------
 
-BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH (PIXELS)
+BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH  (PIXELS)
 BMNHEIGH   EQU     30                      ;BOMBMAN HEIGHT (PIXELS)
 
 
@@ -44,6 +48,7 @@ INTPRSC     EQU     $00FFFFFF               ; PRESS FIRE COLOR
 GOVSTRX     EQU     35                      ; TITLE X COORDINATE
 GOVSTRY     EQU     15                      ; TITLE Y COORDINATE
 GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
+
 
 
 

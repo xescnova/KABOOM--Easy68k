@@ -15,6 +15,7 @@ STANEXT     DS.W    1                       ; NEXT GAME STATE
 PLRPOSX     DS.W    1                       ; PLAYER X POSITION  (PIXELS) 
 PLRPOSY     DS.W    1                       ; PLAYER Y POSITION  (PIXELS)
 PLRSCORE    DS.W    1                       ; PLAYER SCORE
+PLRLIFE     DS.W    1                       ; PLAYER IN GAME LIFE
 
 PLRDMG      DS.B    1                       ; BIT0: UPD DAMAGE, BIT1 PLOT DMG
             DS.W    0
@@ -29,6 +30,7 @@ BMNSPEED     DS.W    1                       ; BOMBMAN SPEED (PIXELS PER INT)
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
 
 
 
