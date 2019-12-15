@@ -10,6 +10,14 @@
 STACUR      DS.W    1                       ; CURRENT GAME STATE
 STANEXT     DS.W    1                       ; NEXT GAME STATE
 
+STATES      DC.L    STAINIT                 ;INITIALIZE STATE 0
+            DC.L    STAMENU                 ;MENU STATE       1
+            DC.L    STAGAME                 ;GAME STATE       2
+            DC.L    STAUPD                  ;UPDATE STATE     3 
+            DC.L    STAGOVR                 ;GAME OVER STATE  4
+            
+STATE       DS.L    1                       ;CURRENT STATE
+
 ; --- PLAYER RELATED VARIABLES ------------------------------------------------
 
 PLRPOSX     DS.W    1                       ; PLAYER X POSITION (PIXELS)
@@ -31,6 +39,7 @@ BMNPOSY     DS.W    1                       ; BOMBMAN Y POSITION  (PIXELS)
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
 
 
 

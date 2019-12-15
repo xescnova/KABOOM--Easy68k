@@ -1,4 +1,4 @@
-; =============================================================================
+; =============================================================================   
 ; TITLE    : EXAMPLE GAME
 ; AUTHOR   :
 ; CREATION :
@@ -13,14 +13,13 @@
             INCLUDE "CONST.X68"             ; USER CONSTANTS
             INCLUDE "UTIL.X68"              ; UTILITY MACRO AND SUBROUTINES
             INCLUDE "PLAYER.X68"            ; PLAYER MANAGEMENT
+            INCLUDE "BOMBMAN.X68"           ; BOMBMAN MANEGEMENT
             INCLUDE "AGENTLST.X68"          ; AGENT LIST MANAGEMENT
             INCLUDE "SHOT.X68"              ; SHOT AGENT MANAGEMENT
             INCLUDE "ASTEROID.X68"          ; ASTEROID AGENT MANAGEMENT
             INCLUDE "SPAWNER.X68"           ; SPAWNER (CREATES ASTEROIDS)
             INCLUDE "XPLOSION.X68"          ; EXPLOSION AGENT MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
-            INCLUDE "BOMBMAN.X68"           ; BOMBMAN MANEGEMENT
-
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
 ; --- INITIALIZE --------------------------------------------------------------
@@ -28,13 +27,14 @@
 START       JSR     SYSINIT
             ; TO DO: CALL GAME INITIALIZATION CODE HERE
             JSR     STAINIT                 ; INITIALIZE GAME STATE
-
+            
 
 ; --- UPDATE ------------------------------------------------------------------
 
 .LOOP       TRAP    #KBDTRAP                ; READ KEYBOARD
             ; TO DO: CALL GAME UPDATE CODE HERE
-            JSR     STAUPD                  ; UPDATE DEPENDING ON THE STATE
+            MOVE.L  STATE,A2
+            JSR     (A2)
 
 
 ; --- WAIT SYNCH --------------------------------------------------------------
@@ -45,8 +45,7 @@ START       JSR     SYSINIT
 
 ; --- PLOT --------------------------------------------------------------------
 
-            ; TO DO: CALL GAME PLOT CODE HERE
-            JSR     STAPLOT                 ; PLOT DEPENDING ON THE STATE
+            ; TO DO: CALL GAME PLOT CODE HERE           
             TRAP    #SCRTRAP                ; SHOW GRAPHICS
             BRA     .LOOP
             SIMHALT
@@ -56,6 +55,10 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
+
+
+
 
 
 *~Font name~Courier New~

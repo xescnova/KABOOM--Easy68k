@@ -20,7 +20,6 @@ BMNUPD
 ; OUTPUT   - NONE (MODIFIES BOMBMAN DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVEM.W D0,-(A7)
             JSR     UTLRAND
             CMP     #1,D0
             BEQ     .CHKRT
@@ -54,7 +53,7 @@ BMNUPD
 *            MOVE.W  (PLRPOSX),D1
 *            MOVE.W  (PLRPOSY),D2
 *            JSR     AGLADD
-.END        MOVEM.W (A7)+,D0
+.END        
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -110,6 +109,9 @@ BMNPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 *.SCORESTR   DC.B    'SCORE: ',0
+
+
+
 
 
 
