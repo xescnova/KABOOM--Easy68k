@@ -27,7 +27,7 @@ PLRUPD
             BEQ     .NODMG
             SUB.W   #ASTDMG,(PLRENER)
             BGT     .NODMG
-            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
+*            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
 .NODMG      MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
             ROR.B   #1,D1
@@ -123,6 +123,7 @@ PLRPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 

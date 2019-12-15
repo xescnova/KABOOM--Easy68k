@@ -87,10 +87,14 @@ STAUPD
 *            RTS
 
             
-            JSR     PLRUPD
-            BRA     PLRPLOT
+            
+*            MOVE.B  (SCRCYCCT),D0
+*            AND     #$0F,D0                 ; EVERY 16 CYCLES
+*            BNE     .END  
             JSR     BMNUPD
-            BRA     BMNPLOT
+            JSR     BMNPLOT   
+            JSR     PLRUPD
+            JSR     PLRPLOT          
             RTS
 
 
@@ -275,6 +279,7 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
 
 
 

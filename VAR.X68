@@ -7,8 +7,8 @@
 
 ; --- GAME STATE RELATED VARIABLES --------------------------------------------
 
-STACUR      DS.W    1                       ; CURRENT GAME STATE
-STANEXT     DS.W    1                       ; NEXT GAME STATE
+*STACUR      DS.W    1                       ; CURRENT GAME STATE
+*STANEXT     DS.W    1                       ; NEXT GAME STATE
 
 STATES      DC.L    STAINIT                 ;INITIALIZE STATE 0
             DC.L    STAMENU                 ;MENU STATE       1
@@ -39,6 +39,7 @@ BMNPOSY     DS.W    1                       ; BOMBMAN Y POSITION  (PIXELS)
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
 
 
 
