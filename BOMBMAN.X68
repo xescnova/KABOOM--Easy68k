@@ -20,9 +20,13 @@ BMNUPD
 ; OUTPUT   - NONE (MODIFIES BOMBMAN DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+*            MOVE.B  (SCRCYCCT),D1
+*            AND     #$0F,D1                 ; EVERY 16 CYCLES
+*            BNE     .END                    ; NEW DIRECTION
             JSR     UTLRAND
-            CMP     #1,D0
-            BEQ     .CHKRT
+            
+            CMP.B    #%10000000,D0
+            BGE     .CHKRT
             SUB.W   #BMNSPEED,(BMNPOSX)
             TST.W   (BMNPOSX)
             BGE     .CHKRT
@@ -109,6 +113,7 @@ BMNPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 *.SCORESTR   DC.B    'SCORE: ',0
+
 
 
 

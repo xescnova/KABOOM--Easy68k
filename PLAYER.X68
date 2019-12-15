@@ -36,35 +36,12 @@ PLRUPD
             TST.W   (PLRPOSX)
             BGE     .CHKRT
             CLR.W   (PLRPOSX)
-*.CHKUP      ROR.B   #1,D1
-*            BCC     .CHKRT
-*            SUB.W   #PLRSPEED,(PLRPOSY)
-*            TST.W   (PLRPOSY)
-*            BGE     .CHKRT
-*            CLR.W   (PLRPOSY)
 .CHKRT      ROR.B   #2,D1
-            BCC     .MDONE
+            BCC     .NOFIRE
             ADD.W   #PLRSPEED,(PLRPOSX)
             CMP.W   #SCRWIDTH-PLRWIDTH,(PLRPOSX)
-            BLE     .MDONE
+            BLE     .NOFIRE
             MOVE.W  #SCRWIDTH-PLRWIDTH,(PLRPOSX)
-*.CHKDN      ROR.B   #1,D1
-*            BCC     .MDONE
-*            ADD.W   #PLRSPEED,(PLRPOSY)
-*            CMP.W   #SCRHEIGH-PLRHEIGH,(PLRPOSY)
-*            BLE     .MDONE
-*            MOVE.W  #SCRHEIGH-PLRHEIGH,(PLRPOSY)
-.MDONE      BTST.B  #KBDBITF1,(KBDEDGE)
-            BEQ     .NOFIRE
-            MOVEM.L A1-A3/D0-D2,-(A7)
-            LEA     SHTINIT,A1
-            LEA     SHTUPD,A2
-            LEA     SHTPLOT,A3
-            MOVE.W  #SHTTYPE,D0
-            MOVE.W  (PLRPOSX),D1
-            MOVE.W  (PLRPOSY),D2
-            JSR     AGLADD
-            MOVEM.L (A7)+,A1-A3/D0-D2
 .NOFIRE     MOVE.W  (A7)+,D1
             RTS
 
@@ -123,6 +100,7 @@ PLRPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 
