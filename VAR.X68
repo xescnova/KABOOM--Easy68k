@@ -24,8 +24,6 @@ PLRPOSX     DS.W    1                       ; PLAYER X POSITION (PIXELS)
 PLRPOSY     DS.W    1                       ; PLAYER Y POSITION (PIXELS)
 PLRENER     DS.W    1                       ; PLAYER ENERGY
 PLRSCORE    DS.W    1                       ; PLAYER SCORE
-
-
 PLRLIFE     DS.W    1                       ; PLAYER IN GAME LIFE
 
 PLRDMG      DS.B    1                       ; BIT0: UPD DAMAGE, BIT1 PLOT DMG
@@ -35,11 +33,14 @@ PLRDMG      DS.B    1                       ; BIT0: UPD DAMAGE, BIT1 PLOT DMG
 
 BMNPOSX     DS.W    1                       ; BOMBMAN X POSITION  (PIXELS) 
 BMNPOSY     DS.W    1                       ; BOMBMAN Y POSITION  (PIXELS)
+BMNDIR      DS.W    1                       ; BOMBMAN DIRECTION 
+                                            ; RIGHT > #128  LEFT < #128 
 
 ; --- UTILITY VARIABLES ------------------------------------------------------
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
 
 
 

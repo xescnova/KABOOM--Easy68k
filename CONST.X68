@@ -20,7 +20,7 @@ XPLTYPE     EQU     3
 PLRWIDTH    EQU     100                    ; PLAYER WIDTH (PIXELS)
 PLRHEIGH    EQU     40                    ; PLAYER HEIGHT (PIXELS)
 PLRINIEN    EQU     500                     ; PLAYER INITIAL ENERGY (<SCRWIDTH)
-PLRSPEED    EQU     5                       ; PLAYER SPEED (PIXELS PER INT)
+PLRSPEED    EQU     10                       ; PLAYER SPEED (PIXELS PER INT)
 PLRNRMCL    EQU     $0000C0FF               ; PLAYER NORMAL COLOR
 PLRDMGCL    EQU     $000000FF               ; PLAYER DAMAGED COLOR
 PLRTXTCL    EQU     $00FFFFFF               ; FONT COLOR
@@ -76,8 +76,10 @@ GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
 BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH  (PIXELS)
 BMNHEIGH   EQU     30                      ;BOMBMAN HEIGHT (PIXELS)
-BMNSPEED   EQU     5                       ;BOMBMAN SPEED (PIXELS PER INT)
+BMNSPEED   EQU     9                       ;BOMBMAN SPEED (PIXELS PER INT)
 BMNNRMCL   EQU     $0051AE00               ;BOMBMAN NORMAL COLOR
+
+
 
 
 

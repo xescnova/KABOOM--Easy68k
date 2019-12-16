@@ -11,6 +11,7 @@ BMNINIT
 ; -----------------------------------------------------------------------------
             MOVE.W  #SCRWIDTH/2,(BMNPOSX)
             MOVE.W  #(BMNHEIGH)+50,(BMNPOSY)
+            MOVE.W  #129,(BMNDIR)
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -21,42 +22,29 @@ BMNUPD
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVE.B  (SCRCYCCT),D1
-            AND     #$18,D1                 ; EVERY 16 CYCLES
-            BNE     .END                    ; NEW DIRECTION
-            JSR     UTLRAND          
-            CMP   #128,D0
+            AND     #$20,D1                 ; EVERY 16 CYCLES
+            BNE     .ENDCICLE               ; NEW DIRECTION
+            JSR     UTLRAND
+            MOVE.W  (BMNPOSX),D1            ;BMNDIR=(BMNPOSX*128)/((SCRWIDTH)/2)
+            MULU.W  #128,D1
+            DIVU.W  #320,D1
+            MOVE.W  D1,D2
+            SWAP    D2
+            MULU.W  #320,D2
+            ADD.W   D2,D1
+            MOVE.W  D1,(BMNDIR)             
+.ENDCICLE                                    
+            CMP.W   (BMNDIR),D0
             BGE     .CHKRT
             SUB.W   #BMNSPEED,(BMNPOSX)
             TST.W   (BMNPOSX)
             BGE     .END
             CLR.W   (BMNPOSX)
             JMP     .END
-*.CHKUP      ROR.B   #1,D1
-*            BCC     .CHKRT
-*            SUB.W   #PLRSPEED,(PLRPOSY)
-*            TST.W   (PLRPOSY)
-*            BGE     .CHKRT
-*            CLR.W   (PLRPOSY)
 .CHKRT      ADD.W   #BMNSPEED,(BMNPOSX)
             CMP   #SCRWIDTH-BMNWIDTH,(BMNPOSX)
             BLE     .END
             MOVE.W  #SCRWIDTH-BMNWIDTH,(BMNPOSX)
-*.CHKDN      ROR.B   #1,D1
-*            BCC     .MDONE
-*            ADD.W   #PLRSPEED,(PLRPOSY)
-*            CMP.W   #SCRHEIGH-PLRHEIGH,(PLRPOSY)
-*            BLE     .MDONE
-*            MOVE.W  #SCRHEIGH-PLRHEIGH,(PLRPOSY)
-*.MDONE      BTST.B  #KBDBITF1,(KBDEDGE)
-*            BEQ     .NOFIRE
-*            MOVEM.L A1-A3/D0-D2,-(A7)
-*            LEA     SHTINIT,A1
-*            LEA     SHTUPD,A2
-*            LEA     SHTPLOT,A3
-*            MOVE.W  #SHTTYPE,D0
-*            MOVE.W  (PLRPOSX),D1
-*            MOVE.W  (PLRPOSY),D2
-*            JSR     AGLADD
 .END        
             RTS
 
@@ -113,6 +101,9 @@ BMNPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 *.SCORESTR   DC.B    'SCORE: ',0
+
+
+
 
 
 

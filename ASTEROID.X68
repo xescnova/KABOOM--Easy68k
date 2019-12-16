@@ -15,17 +15,21 @@ ASTINIT
 ; MODIFIES - NONE
 ; NOTE     - ASSUMES SCRHEIGH IS GREATER THAN 255
 ; -----------------------------------------------------------------------------
-            MOVE.W  D0,-(A7)
+            MOVEM.W  D0-D1,-(A7)
             JSR     UTLRAND
             ADD.W   #(SCRHEIGH-255-ASTSIZE)/2, D0
-            MOVE.W  (BMNPOSX),(A0)          ; X POSITION
-            MOVE.W  (BMNPOSY),2(A0)                ; Y POSITION (PSEUDO-RANDOM)
+            MOVE.W  (BMNPOSX),(A0)          ; X POSITION           
+            MOVE.W  (BMNHEIGH),D1
+            MULU.W  #2,D1
+            ADD.W   (BMNPOSY),D1            
+            MOVE.W  D1,2(A0)                
+            
             JSR     UTLRAND
-            AND.W   #0,D0               ; X SPEED (PSEUDO-RANDOM)
+            AND.W   #0,D0                   ; X SPEED (PSEUDO-RANDOM)
             MOVE.W  D0,4(A0)
             SUBQ.W  #7,D0
             MOVE.W  #7,6(A0)                ; Y SPEED (PSEUDO-RANDOM)
-            MOVE.W  (A7)+,D0
+            MOVEM.W  (A7)+,D0-D1
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -105,6 +109,7 @@ ASTXPLO
             JSR     AGLKILL
             MOVEM.L (A7)+,A1-A3/D0-D4
             RTS
+
 
 
 
