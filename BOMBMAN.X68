@@ -20,25 +20,25 @@ BMNUPD
 ; OUTPUT   - NONE (MODIFIES BOMBMAN DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-*            MOVE.B  (SCRCYCCT),D1
-*            AND     #$0F,D1                 ; EVERY 16 CYCLES
-*            BNE     .END                    ; NEW DIRECTION
-            JSR     UTLRAND
-            
-            CMP.B    #%10000000,D0
+            MOVE.B  (SCRCYCCT),D1
+            AND     #$18,D1                 ; EVERY 16 CYCLES
+            BNE     .END                    ; NEW DIRECTION
+            JSR     UTLRAND          
+            CMP   #128,D0
             BGE     .CHKRT
             SUB.W   #BMNSPEED,(BMNPOSX)
             TST.W   (BMNPOSX)
-            BGE     .CHKRT
+            BGE     .END
             CLR.W   (BMNPOSX)
+            JMP     .END
 *.CHKUP      ROR.B   #1,D1
 *            BCC     .CHKRT
 *            SUB.W   #PLRSPEED,(PLRPOSY)
 *            TST.W   (PLRPOSY)
 *            BGE     .CHKRT
 *            CLR.W   (PLRPOSY)
-.CHKRT      ADD.W   #BMNSPEED,(PLRPOSX)
-            CMP.W   #SCRWIDTH-BMNWIDTH,(BMNPOSX)
+.CHKRT      ADD.W   #BMNSPEED,(BMNPOSX)
+            CMP   #SCRWIDTH-BMNWIDTH,(BMNPOSX)
             BLE     .END
             MOVE.W  #SCRWIDTH-BMNWIDTH,(BMNPOSX)
 *.CHKDN      ROR.B   #1,D1
@@ -113,6 +113,8 @@ BMNPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 *.SCORESTR   DC.B    'SCORE: ',0
+
+
 
 
 

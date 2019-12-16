@@ -51,7 +51,13 @@ STAUPD
             JSR     BMNUPD
             JSR     BMNPLOT   
             JSR     PLRUPD
-            JSR     PLRPLOT          
+            JSR     PLRPLOT      
+            
+            JSR     SPWUPD
+            JSR     AGLUPD
+            JSR     AGLPLOT
+
+    
             RTS
 STAINTRP
 ; INTRO STATE PLOT
@@ -111,6 +117,8 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
+
 
 
 

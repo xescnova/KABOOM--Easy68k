@@ -35,10 +35,12 @@ PLRDMG      DS.B    1                       ; BIT0: UPD DAMAGE, BIT1 PLOT DMG
 
 BMNPOSX     DS.W    1                       ; BOMBMAN X POSITION  (PIXELS) 
 BMNPOSY     DS.W    1                       ; BOMBMAN Y POSITION  (PIXELS)
+
 ; --- UTILITY VARIABLES ------------------------------------------------------
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
 
 
 

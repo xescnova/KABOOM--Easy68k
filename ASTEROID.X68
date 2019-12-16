@@ -18,13 +18,13 @@ ASTINIT
             MOVE.W  D0,-(A7)
             JSR     UTLRAND
             ADD.W   #(SCRHEIGH-255-ASTSIZE)/2, D0
-            MOVE.W  #SCRWIDTH,(A0)          ; X POSITION
-            MOVE.W  D0,2(A0)                ; Y POSITION (PSEUDO-RANDOM)
+            MOVE.W  (BMNPOSX),(A0)          ; X POSITION
+            MOVE.W  (BMNPOSY),2(A0)                ; Y POSITION (PSEUDO-RANDOM)
             JSR     UTLRAND
-            AND.W   #$000F,D0               ; X SPEED (PSEUDO-RANDOM)
+            AND.W   #0,D0               ; X SPEED (PSEUDO-RANDOM)
             MOVE.W  D0,4(A0)
             SUBQ.W  #7,D0
-            MOVE.W  D0,6(A0)                ; Y SPEED (PSEUDO-RANDOM)
+            MOVE.W  #7,6(A0)                ; Y SPEED (PSEUDO-RANDOM)
             MOVE.W  (A7)+,D0
             RTS
 
@@ -42,12 +42,9 @@ ASTUPD
             ADD.W   D0,2(A0)
             CMP.W   #-ASTSIZE,(A0)          ; CHECK BOUNCE
             BLT     .KILL
-            TST.W   2(A0)
-            BLE     .BOUNCE
             CMP.W   #SCRHEIGH-ASTSIZE,2(A0)
             BLT     .COLPLAY
-.BOUNCE     NEG.W   6(A0)
-.COLPLAY    MOVE.W  (A0),D0
+.COLPLAY   MOVE.W  (A0),D0
             MOVE.W  2(A0),D1
             MOVE.W  #ASTSIZE,D4
             MOVE.W  D4,D6
@@ -108,6 +105,7 @@ ASTXPLO
             JSR     AGLKILL
             MOVEM.L (A7)+,A1-A3/D0-D4
             RTS
+
 
 
 *~Font name~Courier New~
