@@ -44,12 +44,12 @@ SHTSPEED    EQU     10                      ; SHOT SPEED (PIXELS PER INT)
 
 ; --- ASTEROID RELATED CONSTANTS ----------------------------------------------
 
-ASTSIZE     EQU     20                     ; ASTEROID DIAMETER
-ASTPENCL    EQU     $00FFFFFF               ; ASTEROID PEN COLOR
-ASTFILCL    EQU     $0000FF00               ; ASTEROID FIL COLOR
-ASTDMG      EQU     10                      ; ASTEROID DAMAGE TO PLAYER
-ASTNFRAG    EQU     5                       ; NUMBER OF FRAGMENTS IN EXPLOSION
-ASTSCORE    EQU     5                       ; SCORE ASTEROID DESTRUCTION
+BOMBSIZE     EQU     20                     ; ASTEROID DIAMETER
+BOMBPENCL    EQU     $00FFFFFF               ; ASTEROID PEN COLOR
+BOMBFILCL    EQU     $0000FF00               ; ASTEROID FIL COLOR
+BOMBDMG      EQU     10                      ; ASTEROID DAMAGE TO PLAYER
+BOMBFRAG    EQU     5                       ; NUMBER OF FRAGMENTS IN EXPLOSION
+BOMBSCORE    EQU     5                       ; SCORE ASTEROID DESTRUCTION
 
 ; --- EXPLOSION RELATED CONSTANTS ---------------------------------------------
 
@@ -78,6 +78,7 @@ BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH  (PIXELS)
 BMNHEIGH   EQU     30                      ;BOMBMAN HEIGHT (PIXELS)
 BMNSPEED   EQU     9                       ;BOMBMAN SPEED (PIXELS PER INT)
 BMNNRMCL   EQU     $0051AE00               ;BOMBMAN NORMAL COLOR
+
 
 
 

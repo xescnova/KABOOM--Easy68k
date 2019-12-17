@@ -15,8 +15,7 @@
             INCLUDE "PLAYER.X68"            ; PLAYER MANAGEMENT
             INCLUDE "BOMBMAN.X68"           ; BOMBMAN MANEGEMENT
             INCLUDE "AGENTLST.X68"          ; AGENT LIST MANAGEMENT
-            INCLUDE "SHOT.X68"              ; SHOT AGENT MANAGEMENT
-            INCLUDE "ASTEROID.X68"          ; ASTEROID AGENT MANAGEMENT
+            INCLUDE "BOMB.X68"              ; BOMB AGENT MANAGEMENT
             INCLUDE "SPAWNER.X68"           ; SPAWNER (CREATES ASTEROIDS)
             INCLUDE "XPLOSION.X68"          ; EXPLOSION AGENT MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
@@ -55,6 +54,8 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
+
 
 
 

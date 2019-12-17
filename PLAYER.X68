@@ -11,9 +11,7 @@ PLRINIT
 ; -----------------------------------------------------------------------------
             MOVE.W  #SCRWIDTH/2,(PLRPOSX)
             MOVE.W  #(SCRHEIGH-PLRHEIGH)-50,(PLRPOSY)
-            MOVE.W  #PLRINIEN,(PLRENER)
             CLR.W   (PLRSCORE)
-            CLR.W   (PLRDMG)
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -25,7 +23,7 @@ PLRUPD
 ; -----------------------------------------------------------------------------
             BCLR.B  #PLRUBDMG,(PLRDMG)
             BEQ     .NODMG
-            SUB.W   #ASTDMG,(PLRENER)
+            SUB.W   #BOMBDMG,(PLRENER)
             BGT     .NODMG
 *            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
 .NODMG      MOVE.W  D1,-(A7)
@@ -84,22 +82,23 @@ PLRPLOT
             MOVE.B  #17,D0
             TRAP    #15
 
-            UTLSPEN #$00FFFFFF              ; PLOT LIFE
-            UTLSFIL #PLRLIFEC
-            MOVE.W  #(SCRWIDTH-PLRINIEN)/2,D1
-            MOVE.W  #PLRLIFEY,D2
-            MOVE.W  (PLRENER),D3
-            ADD.W   D1,D3
-            MOVE.W  #PLRLIFEY+PLRLIFEH,D4
-            MOVE.B  #87,D0
-            TRAP    #15
-            MOVE.W  #(SCRWIDTH+PLRINIEN)/2,D3
-            MOVE.B  #90,D0
-            TRAP    #15
+*            UTLSPEN #$00FFFFFF              ; PLOT LIFE
+*            UTLSFIL #PLRLIFEC
+*            MOVE.W  #(SCRWIDTH-PLRINIEN)/2,D1
+*            MOVE.W  #PLRLIFEY,D2
+*            MOVE.W  (PLRENER),D3
+*            ADD.W   D1,D3
+*            MOVE.W  #PLRLIFEY+PLRLIFEH,D4
+*            MOVE.B  #87,D0
+*            TRAP    #15
+*            MOVE.W  #(SCRWIDTH+PLRINIEN)/2,D3
+*            MOVE.B  #90,D0
+*            TRAP    #15
 
             MOVEM.L (A7)+,D0-D4
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 

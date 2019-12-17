@@ -13,13 +13,14 @@ SPWUPD
             MOVE.B  (SCRCYCCT),D0
             AND     #$5F,D0                 ; EVERY 16 CYCLES
             BNE     .END                    ; CREATE A NEW ASTEROID
-            LEA     ASTINIT,A1
-            LEA     ASTUPD,A2
-            LEA     ASTPLOT,A3
+            LEA     BOMBINIT,A1
+            LEA     BOMBUPD,A2
+            LEA     BOMBPLOT,A3
             MOVE.W  #ASTTYPE,D0
             JSR     AGLADD
 .END        MOVEM.L (A7)+,D0/A1-A3
             RTS
+
 
 
 *~Font name~Courier New~

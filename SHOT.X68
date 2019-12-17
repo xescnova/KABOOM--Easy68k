@@ -40,8 +40,8 @@ SHTUPD
             BEQ     .END
             MOVE.W  8(A0),D0
             MOVE.W  10(A0),D1
-            MOVE.W  #ASTSIZE,D4
-            MOVE.W  #ASTSIZE,D6
+            MOVE.W  #BOMBSIZE,D4
+            MOVE.W  #BOMBSIZE,D6
             JSR     UTLCHCOL
             TST.B   D0
             BNE     .EXPLO                  ; IF COLLISION, EXPLODE IT
@@ -51,10 +51,10 @@ SHTUPD
 .END        MOVEM.L (A7)+,A0-A1/D0-D7
             RTS
 .EXPLO      ADD.L   #8,A0
-            JSR     ASTXPLO                 ; EXPLODE ASTEROID
+            JSR     BOMBXPLO                 ; EXPLODE ASTEROID
             MOVE.L  A1,A0
             JSR     AGLKILL                 ; DESTROY SHOT
-            ADD.W   #ASTSCORE,(PLRSCORE)    ; INCREASE SCORE
+            ADD.W   #BOMBSCORE,(PLRSCORE)    ; INCREASE SCORE
             BRA     .END
 
 ; -----------------------------------------------------------------------------
@@ -80,3 +80,9 @@ SHTPLOT
             TRAP        #15
             MOVEM.L     (A7)+,A0/D1-D4
             RTS
+
+
+*~Font name~Courier New~
+*~Font size~10~
+*~Tab type~1~
+*~Tab size~4~
