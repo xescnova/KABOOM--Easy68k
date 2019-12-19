@@ -32,7 +32,7 @@ BOMBUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVE.W  D0,-(A7)
+            MOVEM.W  D0-D1,-(A7)
             MOVE.W  4(A0),D0                ; UPDATE COORDINATES
             SUB.W   D0,(A0)
             MOVE.W  6(A0),D0
@@ -47,12 +47,20 @@ BOMBUPD
             MOVE.W  #PLRHEIGH,D7
             JSR     UTLCHCOL
             TST.B   D0
-            BEQ     .END
-            JSR     AGLKILL
-.END        MOVE.W  (A7)+,D0
+            BEQ     .DMG
+            JSR     AGLKILL  
+.END        MOVEM.W  (A7)+,D0-D1
             RTS
 .KILL       JSR     AGLKILL
             BRA     .COLPLAY
+.DMG        MOVE.W 2(A0),D0
+            MOVE.W PLRPOSY,D1
+            ADD.W  #PLRHEIGH,D1
+            CMP D1,D0
+            BMI .END
+            SUB.W #BOMBDMG,PLRLIFE
+            JSR     AGLKILL  
+            BRA .END  
 
 ; -----------------------------------------------------------------------------
 BOMBPLOT
@@ -97,6 +105,8 @@ BOMBXPLO
             JSR     AGLKILL
             MOVEM.L (A7)+,A1-A3/D0-D4
             RTS
+
+
 
 
 

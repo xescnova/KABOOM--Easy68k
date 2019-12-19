@@ -41,7 +41,9 @@ START       JSR     SYSINIT
 .WINT       TST.B   (SCRINTCT)              ; WAIT FOR INTERRUPT
             BEQ     .WINT
             CLR.B   (SCRINTCT)
-
+            
+            ;para la implementacion de la parte obligatoria del grupo de tres hay que mira en (SCRINTCT) si es 0
+            ;si lo es hay que dejarlo como esta sino vamos a otro que reste 1 pero tiene que tener un maximo
 ; --- PLOT --------------------------------------------------------------------
 
             ; TO DO: CALL GAME PLOT CODE HERE           
@@ -54,6 +56,8 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
+
 
 
 

@@ -22,10 +22,10 @@ PLRUPD
 ; OUTPUT   - NONE (MODIFIES PLAYER DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            BCLR.B  #PLRUBDMG,(PLRDMG)
-            BEQ     .NODMG
-            SUB.W   #BOMBDMG,(PLRENER)
-            BGT     .NODMG
+*            BCLR.B  #PLRUBDMG,(PLRDMG)
+*            BEQ     .NODMG
+*            SUB.W   #BOMBDMG,(PLRENER)
+*            BGT     .NODMG
 *            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
 .NODMG      MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
@@ -68,9 +68,6 @@ PLRPLOT
             MOVE.W  D2,D4
             ADD.W   #PLRWIDTH,D3
             ADD.W   #PLRHEIGH,D4
-*           MOVE.B  #88,D0
-*           TRAP    #15
-*           SUB.W   #PLRWIDTH/2,D3
             MOVE.B  #87,D0
             TRAP    #15
 
@@ -85,23 +82,82 @@ PLRPLOT
             MOVE.W PLRLIFE,D5
             SUBQ.W #1,D5
             
-            MOVE.W #520,D6
-            MOVE.W #540,D7
+            MOVE.W  #520,D6
+            MOVE.W  #530,D7
             
-.HEART      UTLSPEN #$00FFFFFF              ;PLOT THE HEARTS
+.HEART      UTLSPEN #$000000FF              ;PLOT THE HEARTS
             UTLSFIL #$000000FF
-            MOVE.W  D6,D1
-            MOVE.W  #15,D2
-            MOVE.W  D7,D3
-            MOVE.W  #35,D4
+            
+            ; FIRST LINE OF SQUARE
+            MOVE.L  D7,D1
+            MOVE.L  #15,D2
+            ADD.L   #10,D7
+            MOVE.L  D7,D3
+            SUB.L   #10,D7
+            MOVE.L  #25,D4
+            MOVE.B  #84,D0
+            TRAP    #15
+            
+            ; SECOND LINE OF SQUARE
+            MOVE.L  D7,D1
+            MOVE.L  #35,D2
+            MOVE.B  #85,D0
+            TRAP    #15
+            
+            ;THIRD LINE OF SQUARE
+            MOVE.L  D6,D1
+            MOVE.L  #25,D2
+            MOVE.B  #85,D0
+            TRAP    #15
+            
+            ; FOURTH LINE OF SQUARE
+            MOVE.L  D7,D1
+            MOVE.L  #15,D2
+            MOVE.B  #85,D0
+            TRAP    #15
+            
+            ; LEFT CIRCLE
+            SUB.L  #12,D7
+            MOVE.L  D7,D1
+            MOVE.L  #13,D2
+            ADD.L  #14,D7
+            MOVE.L  D7,D3
+            MOVE.L  #27,D4
             MOVE.B  #88,D0
-            TRAP #15
-            ADD.W  #40,D6
-            ADD.W #40,D7
+            TRAP    #15
+            
+            ; RIGHT CIRCLE
+            SUB.L  #4,D7
+            MOVE.L  D7,D1
+            MOVE.L  #13,D2
+            ADD.L  #14,D7
+            MOVE.L  D7,D3
+            MOVE.L  #27,D4
+            MOVE.B  #88,D0
+            TRAP    #15
+            
+            ; RESTORE D7 VALUE
+            SUB.L   #12,D7
+            
+            ; FILL HEART
+            MOVE.L  D7,D1
+            MOVE.L  #30,D2
+            MOVE.B  #89,D0
+            TRAP    #15
+
+            ADD.L   #40,D6
+            ADD.L   #40,D7
             DBRA D5,.HEART
             MOVEM.L (A7)+,D0-D7
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
+
+
+
+
+
+
 
 
 
