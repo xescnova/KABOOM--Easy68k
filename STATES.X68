@@ -48,16 +48,17 @@ STAUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            JSR     BMNUPD
-            JSR     BMNPLOT   
-            JSR     PLRUPD
-            JSR     PLRPLOT      
-            
+            BTST.B  #7,KBDEDGE
+            BEQ     .NEXT
+            LEA.L   STATES,A2               ; A0 = STATES LIST
+            MOVE.L  4*4(A2),STATE           ; STATE = STAPAUS  
+.NEXT       JSR     BMNUPD
+            JSR     PLRUPD 
             JSR     SPWUPD
-            JSR     AGLUPD
-            JSR     AGLPLOT
-
-    
+            JSR     AGLUPD         
+            JSR     PLRPLOT      
+            JSR     BMNPLOT            
+            JSR     AGLPLOT    
             RTS
 STAINTRP
 ; INTRO STATE PLOT
@@ -85,6 +86,36 @@ STAINTRP
 .TITSTR     DC.B    'KABOOM! 68000',0
 .PRSSTR     DC.B    'PUSH FIRE TO START',0
             DS.W    0
+
+
+; -----------------------------------------------------------------------------
+STAPAUS
+; PERFORMS STATE PAUSED
+; INPUT    - NONE
+; OUTPUT   - NONE
+; MODIFIES - NONE
+; -----------------------------------------------------------------------------     
+            JSR     PLRPLOT      
+            JSR     BMNPLOT            
+            JSR     AGLPLOT      
+
+            UTLLOCT PAUSTITX,PAUSTITY
+            UTLSPEN #INTTITC
+            UTLSFIL #$00000000
+            LEA     .PAUSSTR,A1
+            MOVE.B  #14,D0
+            TRAP    #15
+      
+            BTST.B  #7,KBDEDGE
+            BEQ     .NEXT
+            LEA.L   STATES,A2               ; A0 = STATES LIST
+            MOVE.L  3*4(A2),STATE           ; STATE = STAPAUS
+.NEXT       RTS
+
+
+            
+.PAUSSTR    DC.B    'GAME PAUSED PUSH "P" TO START',0
+; -----------------------------------------------------------------------------
 
 ; -----------------------------------------------------------------------------
 *STAGOVRU
@@ -117,6 +148,7 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
 
 
 

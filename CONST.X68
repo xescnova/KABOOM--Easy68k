@@ -66,6 +66,12 @@ INTPRSX     EQU     31                      ; PRESS FIRE X COORDINATE
 INTPRSY     EQU     26                      ; PRESS FIRE Y COORDINATE
 INTPRSC     EQU     $00FFFFFF               ; PRESS FIRE COLOR
 
+; --- PAUSED STATE RELATED CONSTANTS -------------------------------------------
+
+PAUSTITX     EQU     25                      ; TITLE X COORDINATE
+PAUSTITY     EQU     15                       ; TITLE Y COORDINATE
+
+
 ; --- GAME OVER STATE RELATED CONSTANTS ---------------------------------------
 
 GOVSTRX     EQU     35                      ; TITLE X COORDINATE
@@ -78,6 +84,7 @@ BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH  (PIXELS)
 BMNHEIGH   EQU     30                      ;BOMBMAN HEIGHT (PIXELS)
 BMNSPEED   EQU     9                       ;BOMBMAN SPEED (PIXELS PER INT)
 BMNNRMCL   EQU     $0051AE00               ;BOMBMAN NORMAL COLOR
+
 
 
 

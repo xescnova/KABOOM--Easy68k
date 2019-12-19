@@ -10,7 +10,8 @@ PLRINIT
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVE.W  #SCRWIDTH/2,(PLRPOSX)
-            MOVE.W  #(SCRHEIGH-PLRHEIGH)-50,(PLRPOSY)
+            MOVE.W  #(SCRHEIGH-PLRHEIGH)-25,(PLRPOSY)
+            MOVE.W  #3,PLRLIFE 
             CLR.W   (PLRSCORE)
             RTS
 
@@ -50,7 +51,7 @@ PLRPLOT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D4,-(A7)
+            MOVEM.L D0-D7,-(A7)
             MOVE.L  #PLRNRMCL,D1            ; DECIDE COLOR
             BCLR.B  #PLRPBDMG,(PLRDMG)
             BEQ     .NODMG
@@ -67,9 +68,9 @@ PLRPLOT
             MOVE.W  D2,D4
             ADD.W   #PLRWIDTH,D3
             ADD.W   #PLRHEIGH,D4
-*            MOVE.B  #88,D0
-*            TRAP    #15
-*            SUB.W   #PLRWIDTH/2,D3
+*           MOVE.B  #88,D0
+*           TRAP    #15
+*           SUB.W   #PLRWIDTH/2,D3
             MOVE.B  #87,D0
             TRAP    #15
 
@@ -81,23 +82,27 @@ PLRPLOT
             MOVE.W  (PLRSCORE),D1
             MOVE.B  #17,D0
             TRAP    #15
-
-*            UTLSPEN #$00FFFFFF              ; PLOT LIFE
-*            UTLSFIL #PLRLIFEC
-*            MOVE.W  #(SCRWIDTH-PLRINIEN)/2,D1
-*            MOVE.W  #PLRLIFEY,D2
-*            MOVE.W  (PLRENER),D3
-*            ADD.W   D1,D3
-*            MOVE.W  #PLRLIFEY+PLRLIFEH,D4
-*            MOVE.B  #87,D0
-*            TRAP    #15
-*            MOVE.W  #(SCRWIDTH+PLRINIEN)/2,D3
-*            MOVE.B  #90,D0
-*            TRAP    #15
-
-            MOVEM.L (A7)+,D0-D4
+            MOVE.W PLRLIFE,D5
+            SUBQ.W #1,D5
+            
+            MOVE.W #520,D6
+            MOVE.W #540,D7
+            
+.HEART      UTLSPEN #$00FFFFFF              ;PLOT THE HEARTS
+            UTLSFIL #$000000FF
+            MOVE.W  D6,D1
+            MOVE.W  #15,D2
+            MOVE.W  D7,D3
+            MOVE.W  #35,D4
+            MOVE.B  #88,D0
+            TRAP #15
+            ADD.W  #40,D6
+            ADD.W #40,D7
+            DBRA D5,.HEART
+            MOVEM.L (A7)+,D0-D7
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 
