@@ -37,7 +37,18 @@ UTLLOCT     MACRO
             MOVE.B  #11,D0
             TRAP    #15
             ENDM
-
+; -----------------------------------------------------------------------------
+UTLSND     MACRO
+; WRAPPER FOR PLAYING WAV FILE TRAP 15 TASK
+; INPUT    - \1 ADDRESS TO STRING WITH NAME OF THE FILE
+; OUTPUT   - D0.W=0 IF SOUND NOT PLAYED, NON ZERO IF PLAYED
+; MODIFIES - D0,A1
+; -----------------------------------------------------------------------------
+            LEA     \1, A1             ;PLAY EXPLOSION SOUND
+            
+            MOVE.L  #73,D0
+            TRAP    #15
+            ENDM
 ; =============================================================================
 ; UTILITY SUBROUTINES
 ; =============================================================================
@@ -133,6 +144,9 @@ UTLRAND
             DC.B    236, 127, 126, 3  , 207, 45 , 193, 2
             DC.B    148, 91 , 35 , 242, 139, 205, 248, 237
             DC.B    116, 51 , 236, 185, 15 , 213, 221, 6
+
+
+
 
 
 

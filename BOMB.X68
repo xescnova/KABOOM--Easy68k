@@ -49,6 +49,8 @@ BOMBUPD
             TST.B   D0
             BEQ     .DMG
             JSR     AGLKILL  
+            UTLSND .CATCH
+            ADD.W   #BOMBSCORE,(PLRSCORE) 
 .END        MOVEM.W  (A7)+,D0-D1
             RTS
 .KILL       JSR     AGLKILL
@@ -61,6 +63,7 @@ BOMBUPD
             SUB.W #BOMBDMG,PLRLIFE
             JSR     AGLKILL  
             BRA .END  
+.CATCH      DC.L 'PING.WAV',0
 
 ; -----------------------------------------------------------------------------
 BOMBPLOT
@@ -105,6 +108,7 @@ BOMBXPLO
             JSR     AGLKILL
             MOVEM.L (A7)+,A1-A3/D0-D4
             RTS
+
 
 
 

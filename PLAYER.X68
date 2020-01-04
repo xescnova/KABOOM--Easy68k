@@ -22,11 +22,11 @@ PLRUPD
 ; OUTPUT   - NONE (MODIFIES PLAYER DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-*            BCLR.B  #PLRUBDMG,(PLRDMG)
-*            BEQ     .NODMG
-*            SUB.W   #BOMBDMG,(PLRENER)
-*            BGT     .NODMG
-*            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
+            MOVE.W PLRLIFE,D0
+            SUB.W #0,D0  
+            BNE .NODMG
+            LEA.L   STATES,A2               ; A0 = STATES LIST
+            MOVE.L  5*4(A2),STATE           ; STATE = STAPAUS         
 .NODMG      MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
             ROR.B   #1,D1
@@ -151,6 +151,7 @@ PLRPLOT
             MOVEM.L (A7)+,D0-D7
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 
