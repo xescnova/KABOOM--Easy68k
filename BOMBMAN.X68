@@ -10,7 +10,7 @@ BMNINIT
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
             MOVE.W  #SCRWIDTH/2,(BMNPOSX)
-            MOVE.W  #(BMNHEIGH)+50,(BMNPOSY)
+            MOVE.W  #(BMNHEIGH)-35,(BMNPOSY)
             MOVE.W  #129,(BMNDIR)
             RTS
 
@@ -55,61 +55,194 @@ BMNPLOT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D4,-(A7)
-            MOVE.L  #BMNNRMCL,D1            ; DECIDE COLOR
-*            BCLR.B  #PLRPBDMG,(PLRDMG)
-*            BEQ     .NODMG
-*            MOVE.L  #PLRDMGCL,D1
-             MOVE.B  #80,D0
-            TRAP    #15
-            ADDQ.B  #1,D0
-            TRAP    #15            
-            MOVE.W  (BMNPOSX),D1            ; PLOT THE BOMBMAN
-            MOVE.W  (BMNPOSY),D2            
+            MOVEM.L D0-D4,-(A7)      
+            
+            ; PLOT THE BOMBMAN
+            UTLSPEN #BMNSKINCL
+            UTLSFIL #BMNSKINCL
+            
+            ; PLOT LEFT HAND
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #5,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #75,D2
             MOVE.W  D1,D3
             MOVE.W  D2,D4
-            ADD.W   #BMNWIDTH,D3
-            ADD.W   #BMNHEIGH,D4
-*            MOVE.B  #88,D0
-*            TRAP    #15
-*            SUB.W   #PLRWIDTH/2,D3
+            ADD.W   #BMNHANDW,D3
+            ADD.W   #BMNHANDH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT RIGTH HAND
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #35,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #75,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNHANDW,D3
+            ADD.W   #BMNHANDH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT NECK
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #20,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #21,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNNECKW,D3
+            ADD.W   #BMNNECKH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT HEAD
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #15,D1
+            MOVE.W  (BMNPOSY),D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNHEADW,D3
+            ADD.W   #BMNHEADH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            UTLSPEN #BMNNRMCL
+            UTLSFIL #BMNNRMCL
+            ; PLOT BODY
+            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #25,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNBODYW,D3
+            ADD.W   #BMNBODYH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT BODY NECK
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #10,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #23,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNBDYNCKW,D3
+            ADD.W   #BMNBDYNCKH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+
+            UTLSPEN #BMNLINECL
+            UTLSFIL #BMNLINECL
+            ; PLOT LINES
+            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #25,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNLINEW,D3
+            ADD.W   #BMNLINEH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #40,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNLINEW,D3
+            ADD.W   #BMNLINEH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #55,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNLINEW,D3
+            ADD.W   #BMNLINEH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #70,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNLINEW,D3
+            ADD.W   #BMNLINEH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT ARMS
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #9,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #35,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNARMW,D3
+            ADD.W   #BMNARMH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #40,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #35,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNARMW,D3
+            ADD.W   #BMNARMH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT MASK
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #13,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #5,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNMASKW,D3
+            ADD.W   #BMNMASKH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            UTLSPEN #BMNNRMCL
+            UTLSFIL #BMNNRMCL
+            ; PLOT EYES
+            ; LEFT EYE
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #18,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #5,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNEYEW,D3
+            ADD.W   #BMNEYEH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; RIGTH EYE
+            MOVE.W  (BMNPOSX),D1
+            ADD.W   #27,D1
+            MOVE.W  (BMNPOSY),D2
+            ADD.W   #5,D2
+            MOVE.W  D1,D3
+            MOVE.W  D2,D4
+            ADD.W   #BMNEYEW,D3
+            ADD.W   #BMNEYEH,D4
             MOVE.B  #87,D0
             TRAP    #15
 
-*            UTLSPEN #PLRTXTCL               ; PLOT THE SCORE TEXT
-*            UTLSFIL #$00000000
-*            UTLLOCT PLRTXTX,PLRTXTY
-*            LEA     .SCORESTR,A1
-*            CLR.L   D1
-*            MOVE.W  (PLRSCORE),D1
-*            MOVE.B  #17,D0
-*            TRAP    #15
-*
-*            UTLSPEN #$00FFFFFF              ; PLOT LIFE
-*            UTLSFIL #PLRLIFEC
-*            MOVE.W  #(SCRWIDTH-PLRINIEN)/2,D1
-*            MOVE.W  #PLRLIFEY,D2
-*            MOVE.W  (PLRENER),D3
-*            ADD.W   D1,D3
-*            MOVE.W  #PLRLIFEY+PLRLIFEH,D4
-*            MOVE.B  #87,D0
-*            TRAP    #15
-*            MOVE.W  #(SCRWIDTH+PLRINIEN)/2,D3
-*            MOVE.B  #90,D0
-*            TRAP    #15
-
             MOVEM.L (A7)+,D0-D4
             RTS
+
 *.SCORESTR   DC.B    'SCORE: ',0
-
-
-
-
-
-
-
-
-
 
 
 

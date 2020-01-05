@@ -15,13 +15,23 @@ SHTTYPE     EQU     1
 ASTTYPE     EQU     2
 XPLTYPE     EQU     3
 
+; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
+
+BCKSKYW     EQU     SCRWIDTH                ; SKY WIDTH
+BCKSKYH     EQU     120                     ; SKY HEIGHT
+BCKGRW      EQU     SCRWIDTH                ; GROUND WIDTH
+BCKGRH      EQU     SCRHEIGH-120            ; GROUND HEIGHT
+BCKSKYCL    EQU     $00FF6150               ; SKY COLOR
+BCKGRCL     EQU     $000E6800               ; GROUND COLOR
+
 ; --- PLAYER RELATED CONSTANTS ------------------------------------------------
 
-PLRWIDTH    EQU     100                    ; PLAYER WIDTH (PIXELS)
-PLRHEIGH    EQU     40                    ; PLAYER HEIGHT (PIXELS)
+PLRWIDTH    EQU     55                      ; PLAYER WIDTH (PIXELS)
+PLRHEIGH    EQU     20                      ; PLAYER HEIGHT (PIXELS)
 PLRINIEN    EQU     500                     ; PLAYER INITIAL ENERGY (<SCRWIDTH)
-PLRSPEED    EQU     10                       ; PLAYER SPEED (PIXELS PER INT)
-PLRNRMCL    EQU     $0000C0FF               ; PLAYER NORMAL COLOR
+PLRSPEED    EQU     10                      ; PLAYER SPEED (PIXELS PER INT)
+PLRNRMCL    EQU     $00696969               ; PLAYER NORMAL COLOR
+PLRWTRCL    EQU     $00FF8000               ; PLAYER WATER COLOR
 PLRDMGCL    EQU     $000000FF               ; PLAYER DAMAGED COLOR
 PLRTXTCL    EQU     $00FFFFFF               ; FONT COLOR
 PLRTXTX     EQU     2                       ; SCORE X COORDINATE
@@ -34,7 +44,7 @@ PLRPMDMG    EQU     %00000010               ; PLOT DAMAGE MASK
 PLRUBDMG    EQU     0                       ; UPDATE DAMAGE BIT
 PLRPBDMG    EQU     1                       ; PLOT DAMAGE BIT
 
-PLRCLIFE     EQU     3                      ; PLAYER CONSTANT LIFE 
+PLRCLIFE    EQU     3                       ; PLAYER CONSTANT LIFE 
 
 ; --- SHOT RELATED CONSTANTS --------------------------------------------------
 
@@ -44,12 +54,16 @@ SHTSPEED    EQU     10                      ; SHOT SPEED (PIXELS PER INT)
 
 ; --- ASTEROID RELATED CONSTANTS ----------------------------------------------
 
-BOMBSIZE     EQU     20                      ; ASTEROID DIAMETER
-BOMBPENCL    EQU     $00FFFFFF               ; ASTEROID PEN COLOR
-BOMBFILCL    EQU     $0000FF00               ; ASTEROID FIL COLOR
-BOMBDMG      EQU     1                       ; ASTEROID DAMAGE TO PLAYER
-BOMBFRAG     EQU     5                       ; NUMBER OF FRAGMENTS IN EXPLOSION
-BOMBSCORE    EQU     5                       ; SCORE ASTEROID DESTRUCTION
+BOMBSIZE    EQU     30                      ; ASTEROID DIAMETER
+BOMBPENCL   EQU     $00000000               ; ASTEROID PEN COLOR
+BOMBFILCL   EQU     $00000000               ; ASTEROID FIL COLOR
+WICKPENCL   EQU     $00727272               ; WICK PEN COLOR
+WICKFILCL   EQU     $00727272               ; WICK FIL COLOR
+FIREPENCL   EQU     $005A70BD               ; FIRE PEN COLOR
+FIREFILCL   EQU     $005A70BD               ; FIRE FIL COLOR
+BOMBDMG     EQU     1                       ; ASTEROID DAMAGE TO PLAYER
+BOMBFRAG    EQU     5                       ; NUMBER OF FRAGMENTS IN EXPLOSION
+BOMBSCORE   EQU     5                       ; SCORE ASTEROID DESTRUCTION
 
 ; --- EXPLOSION RELATED CONSTANTS ---------------------------------------------
 
@@ -80,11 +94,32 @@ GOVSTRC     EQU     $00FFFFFF               ; TITLE COLOR
 
 ; --- BOMBMAN RELATED CONSTANTS ------------------------------------------------
 
-BMNWIDTH   EQU     30                      ;BOMBMAN WIDTH  (PIXELS)
-BMNHEIGH   EQU     30                      ;BOMBMAN HEIGHT (PIXELS)
-BMNSPEED   EQU     9                       ;BOMBMAN SPEED (PIXELS PER INT)
-BMNNRMCL   EQU     $0051AE00               ;BOMBMAN NORMAL COLOR
-
+BMNWIDTH    EQU     50                      ; BOMBMAN WIDTH  (PIXELS)
+BMNHEIGH    EQU     80                      ; BOMBMAN HEIGHT (PIXELS)
+BMNHANDW    EQU     10                      ; BOMBMAN HAND WIDTH
+BMNHANDH    EQU     5                       ; BOMBMAN HAND HEIGHT
+BMNBODYW    EQU     50                      ; BOMBMAN BODY WIDTH
+BMNBODYH    EQU     50                      ; BOMBMAN BODY HEIGHT
+BMNARMW     EQU     1                       ; BOMBMAN ARM WIDTH
+BMNARMH     EQU     40                      ; BOMBMAN ARM HEIGHT
+BMNBDYNCKW  EQU     30                      ; BOMBMAN SHIRT NECK WIDTH
+BMNBDYNCKH  EQU     2                       ; BOMBMAN SHIRT NECK HEIGHT
+BMNNECKW    EQU     10                      ; BOMBMAN NECK WIDTH
+BMNNECKH    EQU     2                       ; BOMBMAN NECK HEIGHT
+BMNHEADW    EQU     20                      ; BOMBMAN HEAD WIDTH
+BMNHEADH    EQU     20                      ; BOMBMAN HEAD HEIGHT
+BMNMASKW    EQU     24                      ; BOMBMAN MASK WIDTH
+BMNMASKH    EQU     5                       ; BOMBMAN MASK HEIGHT
+BMNEYEW     EQU     5                       ; BOMBMAN EYE WIDTH
+BMNEYEH     EQU     5                       ; BOMBMAN EYE HEIGHT
+BMNPUPILW   EQU     1                       ; BOMBMAN PUPIL WIDTH
+BMNPUPILH   EQU     1                       ; BOMBMAN PUPIL HEIGHT
+BMNLINEW    EQU     50                      ; BOMBMAN BLACK LINES WIDTH
+BMNLINEH    EQU     5                       ; BOMBMAN BLACK LINES HEIGHT
+BMNSPEED    EQU     9                       ; BOMBMAN SPEED (PIXELS PER INT)
+BMNNRMCL    EQU     $00FFFFFF               ; BOMBMAN NORMAL COLOR
+BMNSKINCL   EQU     $00DCDCFF               ; BOMNMAN SKIN COLOR
+BMNLINECL   EQU     $00000000               ; BOMBMAN LINES COLOR
 
 
 

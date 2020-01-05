@@ -50,20 +50,26 @@ STAUPD
 ; -----------------------------------------------------------------------------
             LEA.L   STATESP,A3
             MOVE.L  1*4(A3),STATEP           ;UPDATE GAME PLOT
+            TST.W   (PLRLIFE)                      
+            BGE     .NOTOVER    
+            LEA.L    STATES,A2
+            MOVE.L  5*4(A2),STATE
+            JMP     .FIN
 .NOTOVER    BTST.B  #7,KBDEDGE
             BEQ     .NEXT
             LEA.L   STATES,A2               ; A0 = STATES LIST
             MOVE.L  4*4(A2),STATE           ; STATE = STAPAUS  
-.NEXT       JSR     BMNUPD
+.NEXT       JSR     BCKPLOT
+            JSR     BMNUPD
             JSR     PLRUPD 
             JSR     SPWUPD
             JSR     AGLUPD
-            TST.W   (PLRLIFE)                      
-            BGT     .FIN    
-            LEA.L    STATES,A2
-            MOVE.L   5*4(A2),STATE
-            LEA.L    STATESP,A3
-            MOVE.L   3*4(A2),STATEP
+            TST.W   (PLRLIFE)
+            BGT     .FIN
+            LEA.L   STATES,A2
+            MOVE.L  5*4(A2),STATE
+            LEA.L   STATESP,A3
+            MOVE.L  3*4(A2),STATEP           
 .FIN        RTS
 
 
@@ -141,7 +147,8 @@ STAPAUSP
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
-; -----------------------------------------------------------------------------     
+; ----------------------------------------------------------------------------- 
+            JSR     BCKPLOT    
             JSR     PLRPLOT      
             JSR     BMNPLOT            
             JSR     AGLPLOT      
@@ -192,6 +199,9 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
+
+
 
 
 

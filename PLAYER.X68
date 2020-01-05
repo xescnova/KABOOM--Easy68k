@@ -61,13 +61,28 @@ PLRPLOT
             ADDQ.B  #1,D0
             TRAP    #15
             
-            MOVE.W  (PLRPOSX),D1            ; PLOT THE PLAYER
+            ;PLOT PLAYER
+            MOVE.W  (PLRPOSX),D1
             MOVE.W  (PLRPOSY),D2
-            
             MOVE.W  D1,D3
             MOVE.W  D2,D4
             ADD.W   #PLRWIDTH,D3
             ADD.W   #PLRHEIGH,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            UTLSPEN #PLRWTRCL
+            UTLSFIL #PLRWTRCL
+            ;PLOT WATER
+            MOVE.W  (PLRPOSX),D1
+            ADD.W   #5,D1            
+            MOVE.W  (PLRPOSY),D2
+            MOVE.W  D1,D3
+            ADD.W   #PLRWIDTH,D3
+            SUB.W   #10,D3
+            MOVE.W  D2,D4
+            ADD.W   #PLRHEIGH,D4
+            SUB.W   #15,D4
             MOVE.B  #87,D0
             TRAP    #15
 
@@ -87,6 +102,7 @@ PLRPLOT
             
 .HEART      UTLSPEN #$000000FF              ;PLOT THE HEARTS
             UTLSFIL #$000000FF
+            
             ; FIRST LINE OF SQUARE
             MOVE.L  D7,D1
             MOVE.L  #15,D2

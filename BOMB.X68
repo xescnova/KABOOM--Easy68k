@@ -71,9 +71,10 @@ BOMBPLOT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            UTLSPEN #BOMBPENCL
+ UTLSPEN #BOMBPENCL
             UTLSFIL #BOMBFILCL
-            MOVEM.W D1-D4,-(A7)
+            ;DRAW ELIPSE
+            MOVEM.W D1-D6,-(A7)
             MOVE.W  (A0),D1
             MOVE.W  2(A0),D2
             MOVE.W  D1,D3
@@ -82,8 +83,68 @@ BOMBPLOT
             ADD.W   #BOMBSIZE,D4
             MOVE.B  #88,D0
             TRAP    #15
-            MOVEM.W (A7)+,D1-D4
+            
+            ;DRAW RECTANGLE
+            MOVE.W  (A0),D1
+            ADD.W   #10,D1
+            
+            MOVE.W  2(A0),D5
+            SUB.W   #2,D5
+            MOVE.W  D5,D2
+            
+            MOVE.W  (A0),D6
+            ADD.W   #20,D6
+            MOVE.W  D6,D3
+            
+            ADD.W   #6,D5
+            MOVE.W  D5,D4
+            
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            UTLSPEN #WICKPENCL
+            UTLSFIL #WICKFILCL
+            ;DRAW WICK
+            MOVE.W  (A0),D1
+            ADD.W   #13,D1
+            
+            MOVE.W  2(A0),D5
+            SUB.W   #6,D5
+            MOVE.W  D5,D2
+            
+            MOVE.W  (A0),D6
+            ADD.W   #17,D6
+            MOVE.W  D6,D3
+            
+            ADD.W   #3,D5
+            MOVE.W  D5,D4
+            
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            UTLSPEN #FIREPENCL
+            UTLSFIL #FIREFILCL
+            ;DRAW FIRE WICK
+            MOVE.W  (A0),D1
+            ADD.W   #17,D1
+            
+            MOVE.W  2(A0),D5
+            SUB.W   #10,D5
+            MOVE.W  D5,D2
+            
+            MOVE.W  (A0),D6
+            ADD.W   #21,D6
+            MOVE.W  D6,D3
+            
+            ADD.W   #3,D5
+            MOVE.W  D5,D4
+            
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            MOVEM.W (A7)+,D1-D6
             RTS
+
 
 ; -----------------------------------------------------------------------------
 BOMBXPLO
@@ -107,6 +168,7 @@ BOMBXPLO
             JSR     AGLKILL
             MOVEM.L (A7)+,A1-A3/D0-D4
             RTS
+
 
 
 
