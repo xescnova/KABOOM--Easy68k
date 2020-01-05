@@ -22,7 +22,11 @@ PLRUPD
 ; OUTPUT   - NONE (MODIFIES PLAYER DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-       
+*            BCLR.B  #PLRUBDMG,(PLRDMG)
+*            BEQ     .NODMG
+*            SUB.W   #BOMBDMG,(PLRENER)
+*            BGT     .NODMG
+*            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
 .NODMG      MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
             ROR.B   #1,D1
@@ -83,7 +87,6 @@ PLRPLOT
             
 .HEART      UTLSPEN #$000000FF              ;PLOT THE HEARTS
             UTLSFIL #$000000FF
-            
             ; FIRST LINE OF SQUARE
             MOVE.L  D7,D1
             MOVE.L  #15,D2

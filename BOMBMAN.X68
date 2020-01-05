@@ -42,7 +42,7 @@ BMNUPD
             CLR.W   (BMNPOSX)
             JMP     .END
 .CHKRT      ADD.W   #BMNSPEED,(BMNPOSX)
-            CMP   #SCRWIDTH-BMNWIDTH,(BMNPOSX)
+            CMP     #SCRWIDTH-BMNWIDTH,(BMNPOSX)
             BLE     .END
             MOVE.W  #SCRWIDTH-BMNWIDTH,(BMNPOSX)
 .END        
@@ -101,6 +101,7 @@ BMNPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 *.SCORESTR   DC.B    'SCORE: ',0
+
 
 
 

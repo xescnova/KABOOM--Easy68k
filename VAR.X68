@@ -15,9 +15,15 @@ STATES      DC.L    STAINIT                 ;INITIALIZE STATE 0
             DC.L    STAGAME                 ;GAME STATE       2
             DC.L    STAUPD                  ;UPDATE STATE     3
             DC.L    STAPAUS                 ;PAUSED STATE     4 
-            DC.L    STAGOVR                 ;GAME OVER STATE  5
+            DC.L    STAGOVRU                ;GAME OVER STATE  5
+            
+STATESP     DC.L    STAINTRP                ;INIT PLOT        0
+            DC.L    STAUPDP                 ;UPDATE PLOT      1
+            DC.L    STAPAUSP                ;PAUSE PLOT       2
+            DC.L    STAGOVRP                ;GAME OVER PLOT   3
             
 STATE       DS.L    1                       ;CURRENT STATE
+STATEP      DS.L    1                       ;CURRENT STATE PLOT
 
 ; --- PLAYER RELATED VARIABLES ------------------------------------------------
 
@@ -41,6 +47,8 @@ BMNDIR      DS.W    1                       ; BOMBMAN DIRECTION
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
+
 
 
 

@@ -46,7 +46,8 @@ START       JSR     SYSINIT
             ;si lo es hay que dejarlo como esta sino vamos a otro que reste 1 pero tiene que tener un maximo
 ; --- PLOT --------------------------------------------------------------------
 
-            ; TO DO: CALL GAME PLOT CODE HERE           
+            ; TO DO: CALL GAME PLOT CODE HERE
+            JSR      STAPLOT
             TRAP    #SCRTRAP                ; SHOW GRAPHICS
             BRA     .LOOP
             SIMHALT
@@ -56,6 +57,9 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
+
+
 
 
 
