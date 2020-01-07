@@ -23,7 +23,11 @@
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
 
 ; --- INITIALIZE --------------------------------------------------------------
-            
+
+SYSCOUNT    DS.W    1
+SYSKONST    EQU     1000
+           
+                        
 
 START       JSR     SYSINIT
             ; TO DO: CALL GAME INITIALIZATION CODE HERE
@@ -40,10 +44,21 @@ START       JSR     SYSINIT
 
 ; --- WAIT SYNCH --------------------------------------------------------------
 
-.WINT       TST.B   (SCRINTCT)              ; WAIT FOR INTERRUPT
+.WINT       TST.B   (SCRINTCT)              ; WAIT FOR INTERRUPT            
             BEQ     .WINT
-            CLR.B   (SCRINTCT)
-            
+            SUBQ.B   #1,(SCRINTCT)            
+            ADDQ.B   #1,(SYSCOUNT)
+            ADDQ.B   #1,(SCRCYCCT)
+            MOVE.W   #200,D1
+            CMP.B    (SCRCYCCT),D1
+            BNE      .SKIP
+            CLR.B    (SCRCYCCT)
+.SKIP       MOVE.W   (SYSCOUNT),D0            
+*           AND.W    (SCRINTCT),D0
+            CMP.W     #SYSKONST,D0
+            BLS      .LOOP     
+            CLR.B    (SCRINTCT)
+            CLR.B    (SYSCOUNT)
             
             ;para la implementacion de la parte obligatoria del grupo de tres hay que mira en (SCRINTCT) si es 0
             ;si lo es hay que dejarlo como esta sino vamos a otro que reste 1 pero tiene que tener un maximo
@@ -60,29 +75,6 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 *~Font name~Courier New~

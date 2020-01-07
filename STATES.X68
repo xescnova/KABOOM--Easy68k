@@ -11,6 +11,7 @@ STAINIT
 ; -----------------------------------------------------------------------------
             LEA.L   STATES,A2
             MOVE.L  1*4(A2),STATE 
+            CLR.L   (GAMEOVERB)
             RTS
 ; -----------------------------------------------------------------------------
 STAMENU
@@ -20,11 +21,11 @@ STAMENU
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------          
             LEA.L   STATESP,A3
-            MOVE.L  (A3),STATEP   
-            BTST.B  #4,KBDEDGE              ; IF "SPACE" IS PRESED
+            MOVE.L  (A3),STATEP             ;STATE PLOT = INIT PLOT 
+            BTST.B  #4,KBDEDGE              ; IF "SPACE" IS PRESSED
             BEQ     .END
-            LEA.L   STATES,A2               ; A0 = STATES LIST
-            MOVE.L  2*4(A2),STATE           ; UPDATES NEXT STATE
+            LEA.L   STATES,A2               ; A2 = STATES LIST
+            MOVE.L  2*4(A2),STATE           ; UPDATES NEXT STATE (GAME STATE)
 .END        RTS
 ; -----------------------------------------------------------------------------
 
@@ -35,10 +36,10 @@ STAGAME
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-             JSR PLRINIT
+             JSR PLRINIT                     ;INIT PLAYER AND BOMBMAN
              JSR BMNINIT            
              LEA.L   STATES,A2               ; A0 = STATES LIST
-             MOVE.L  3*4(A2),STATE           ; STATE = STAUPDA
+             MOVE.L  3*4(A2),STATE           ; NEXT STATE = STAUPD
              RTS
 
 
@@ -50,35 +51,38 @@ STAUPD
 ; -----------------------------------------------------------------------------
             LEA.L   STATESP,A3
             MOVE.L  1*4(A3),STATEP           ;UPDATE GAME PLOT
-            TST.W   (PLRLIFE)                      
-            BGE     .NOTOVER    
+            TST.W   (PLRLIFE)                ;CHECK PLAYER LIFE      
+            BGE     .NOTOVER            
             LEA.L    STATES,A2
-            MOVE.L  5*4(A2),STATE
+            MOVE.L  5*4(A2),STATE            ;GAME OVER PLOT
             JMP     .FIN
-.NOTOVER    BTST.B  #7,KBDEDGE
+           
+.NOTOVER    BTST.B  #7,KBDEDGE              ;IF "P" (PAUSE) IS PRESSED
             BEQ     .NEXT
-            LEA.L   STATES,A2               ; A0 = STATES LIST
-            MOVE.L  4*4(A2),STATE           ; STATE = STAPAUS  
-.NEXT       JSR     BCKPLOT
-            JSR     BMNUPD
+            LEA.L   STATES,A2               ; A2 = STATES LIST
+            MOVE.L  4*4(A2),STATE           ; STATE = STAPAUS 
+ 
+.NEXT       JSR     BMNUPD                  ; UPDATE GAME
             JSR     PLRUPD 
             JSR     SPWUPD
             JSR     AGLUPD
             TST.W   (PLRLIFE)
             BGT     .FIN
-            LEA.L   STATES,A2
+            LEA.L   STATES,A2               ;GAME OVER UPDATE
             MOVE.L  5*4(A2),STATE
-            LEA.L   STATESP,A3
-            MOVE.L  3*4(A2),STATEP           
+            LEA.L   STATESP,A3              ;GAME OVER PLOT
+            MOVE.L  3*4(A2),STATEP                    
 .FIN        RTS
 
+  
 
 STAUPDP
-; PERFORMS STATE UPDATE AND INIT IF NECESSARY
+; PERFORMS STATE UPDATE PLOT 
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+            JSR     BCKPLOT
             JSR     PLRPLOT      
             JSR     BMNPLOT            
             JSR     AGLPLOT    
@@ -133,7 +137,7 @@ STAPAUS
 ; -----------------------------------------------------------------------------
             LEA.L   STATESP,A3               ; A3 = STATES LIST
             MOVE.L  2*4(A3),STATEP           ; STATEP = STAUPAUSP           
-            BTST.B  #7,KBDEDGE
+            BTST.B  #7,KBDEDGE               ;IF "P" (PAUSE) IS PRESSED
             BEQ     .NEXT
             LEA.L   STATES,A2               ; A0 = STATES LIST
             MOVE.L  3*4(A2),STATE           ; STATE = STAPAUS 
@@ -143,7 +147,7 @@ STAPAUS
 
 ; -----------------------------------------------------------------------------
 STAPAUSP
-; PERFORMS STATE PAUSED
+; PERFORMS STATE PAUSED PLOT
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
@@ -172,13 +176,18 @@ STAGOVRU
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-*           LEA.L   STATESP,A3               ; A0 = STATES LIST
-            MOVE.L  3*4(A3),STATEP           ; UPDATES NEXT STATE
+            TST.W   (GAMEOVERB)             ;SAYS GAME OVER ONCE
+            BNE     .NEXT                    
+            UTLSND  .GAMEOVER
+.NEXT       MOVE.B  #1,(GAMEOVERB)  
+            MOVE.L  3*4(A3),STATEP          ; UPDATES NEXT STATE
             BTST.B  #4,KBDEDGE
             BEQ     .END
             LEA.L   STATES,A2               ; A0 = STATES LIST
             MOVE.L  2*4(A2),STATE           ; UPDATES NEXT STATE
+            CLR.L   (GAMEOVERB)             ; CLEARS GAME OVER BIT
 .END        RTS
+.GAMEOVER DC.L 'SOUND/GAMEOVER.WAV',0 
 
 ; -----------------------------------------------------------------------------
 STAGOVRP
@@ -199,6 +208,7 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
 
 
 

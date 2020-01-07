@@ -23,8 +23,9 @@ BOMBINIT
             MOVE.W   #0,4(A0)              ; X SPEED 
             MOVE.W   #7,6(A0)              ; Y SPEED 
             MOVEM.W  (A7)+,D0
+*            UTLSND .CATCH
             RTS
-
+*.CATCH      DC.L 'SOUND/BOMBEXPLODES.WAV',0
 ; -----------------------------------------------------------------------------
 BOMBUPD
 ; UPDATES A BOMB 
@@ -55,14 +56,16 @@ BOMBUPD
             RTS
 .KILL       JSR     AGLKILL
             BRA     .COLPLAY
-.DMG        MOVE.W 2(A0),D0
-            MOVE.W PLRPOSY,D1
+.DMG        MOVE.W  2(A0),D0
+            MOVE.W  PLRPOSY,D1
             ADD.W  #PLRHEIGH,D1
-            CMP D1,D0
-            BMI .END
-            SUB.W #BOMBDMG,PLRLIFE                        
+            CMP     D1,D0
+            BMI     .END
+            SUB.W   #BOMBDMG,PLRLIFE
+            UTLSND .EXPLODE    
             JSR     AGLKILL            
             BRA   .END  
+.EXPLODE    DC.L 'SOUND/BOMBEXPLODES.WAV',0            
 .CATCH      DC.L 'SOUND/PING.WAV',0
 ; -----------------------------------------------------------------------------
 BOMBPLOT
@@ -168,6 +171,8 @@ BOMBXPLO
             JSR     AGLKILL
             MOVEM.L (A7)+,A1-A3/D0-D4
             RTS
+
+
 
 
 

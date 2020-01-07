@@ -25,6 +25,8 @@ STATESP     DC.L    STAINTRP                ;INIT PLOT        0
 STATE       DS.L    1                       ;CURRENT STATE
 STATEP      DS.L    1                       ;CURRENT STATE PLOT
 
+GAMEOVERB    DS.W    1                      ;GAME OVER BIT 1-NOT SOUND 0-SOUND
+
 ; --- PLAYER RELATED VARIABLES ------------------------------------------------
 
 PLRPOSX     DS.W    1                       ; PLAYER X POSITION (PIXELS)
@@ -47,6 +49,7 @@ BMNDIR      DS.W    1                       ; BOMBMAN DIRECTION
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
 
 
 
