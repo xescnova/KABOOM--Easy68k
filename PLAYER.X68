@@ -12,7 +12,7 @@ PLRINIT
             MOVE.W  #SCRWIDTH/2,(PLRPOSX)
             MOVE.W  #(SCRHEIGH-PLRHEIGH)-25,(PLRPOSY)
             MOVE.W  #3,PLRLIFE 
-            CLR.W   (PLRSCORE)
+            CLR.W   (PLRSCORE)              
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -22,26 +22,22 @@ PLRUPD
 ; OUTPUT   - NONE (MODIFIES PLAYER DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-*            BCLR.B  #PLRUBDMG,(PLRDMG)
-*            BEQ     .NODMG
-*            SUB.W   #BOMBDMG,(PLRENER)
-*            BGT     .NODMG
-*            MOVE.W  #STAGOVR,(STANEXT)      ; IF LIFE IS 0, GAME OVER
-.NODMG      MOVE.W  D1,-(A7)
+
+            MOVE.W  D1,-(A7)
             MOVE.B  (KBDVAL),D1             ; PERFORM MOTION AND CHECK BOUNDS.
             ROR.B   #1,D1
-            BCC     .CHKRT
+            BCC     .CHKRT                  ; THE PLAYER GOES TO THE LEFT
             SUB.W   #PLRSPEED,(PLRPOSX)
             TST.W   (PLRPOSX)
             BGE     .CHKRT
             CLR.W   (PLRPOSX)
-.CHKRT      ROR.B   #2,D1
-            BCC     .NOFIRE
+.CHKRT      ROR.B   #2,D1                   ; THE PLAYER GOES TO THE RIGHT
+            BCC     .END
             ADD.W   #PLRSPEED,(PLRPOSX)
             CMP.W   #SCRWIDTH-PLRWIDTH,(PLRPOSX)
             BLE     .NOFIRE
             MOVE.W  #SCRWIDTH-PLRWIDTH,(PLRPOSX)
-.NOFIRE     MOVE.W  (A7)+,D1
+.END        MOVE.W  (A7)+,D1
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -61,8 +57,7 @@ PLRPLOT
             ADDQ.B  #1,D0
             TRAP    #15
             
-            ;PLOT PLAYER
-            MOVE.W  (PLRPOSX),D1
+            MOVE.W  (PLRPOSX),D1            ;PLOT PLAYER
             MOVE.W  (PLRPOSY),D2
             MOVE.W  D1,D3
             MOVE.W  D2,D4
@@ -73,8 +68,8 @@ PLRPLOT
             
             UTLSPEN #PLRWTRCL
             UTLSFIL #PLRWTRCL
-            ;PLOT WATER
-            MOVE.W  (PLRPOSX),D1
+            
+            MOVE.W  (PLRPOSX),D1            ;PLOT WATER
             ADD.W   #5,D1            
             MOVE.W  (PLRPOSY),D2
             MOVE.W  D1,D3
@@ -103,8 +98,7 @@ PLRPLOT
 .HEART      UTLSPEN #$000000FF              ;PLOT THE HEARTS
             UTLSFIL #$000000FF
             
-            ; FIRST LINE OF SQUARE
-            MOVE.L  D7,D1
+            MOVE.L  D7,D1                   ; FIRST LINE OF SQUARE
             MOVE.L  #15,D2
             ADD.L   #10,D7
             MOVE.L  D7,D3
@@ -113,26 +107,22 @@ PLRPLOT
             MOVE.B  #84,D0
             TRAP    #15
             
-            ; SECOND LINE OF SQUARE
-            MOVE.L  D7,D1
+            MOVE.L  D7,D1                   ; SECOND LINE OF SQUARE
             MOVE.L  #35,D2
             MOVE.B  #85,D0
             TRAP    #15
             
-            ;THIRD LINE OF SQUARE
-            MOVE.L  D6,D1
+            MOVE.L  D6,D1                   ;THIRD LINE OF SQUARE
             MOVE.L  #25,D2
             MOVE.B  #85,D0
             TRAP    #15
             
-            ; FOURTH LINE OF SQUARE
-            MOVE.L  D7,D1
+            MOVE.L  D7,D1                   ; FOURTH LINE OF SQUARE
             MOVE.L  #15,D2
             MOVE.B  #85,D0
             TRAP    #15
             
-            ; LEFT CIRCLE
-            SUB.L  #12,D7
+            SUB.L  #12,D7                   ; LEFT CIRCLE
             MOVE.L  D7,D1
             MOVE.L  #13,D2
             ADD.L  #14,D7
@@ -141,8 +131,7 @@ PLRPLOT
             MOVE.B  #88,D0
             TRAP    #15
             
-            ; RIGHT CIRCLE
-            SUB.L  #4,D7
+            SUB.L  #4,D7                    ; RIGHT CIRCLE
             MOVE.L  D7,D1
             MOVE.L  #13,D2
             ADD.L  #14,D7
@@ -151,11 +140,9 @@ PLRPLOT
             MOVE.B  #88,D0
             TRAP    #15
             
-            ; RESTORE D7 VALUE
-            SUB.L   #12,D7
+            SUB.L   #12,D7                  ; RESTORE D7 VALUE
             
-            ; FILL HEART
-            MOVE.L  D7,D1
+            MOVE.L  D7,D1                   ; FILL HEART
             MOVE.L  #30,D2
             MOVE.B  #89,D0
             TRAP    #15
@@ -166,6 +153,7 @@ PLRPLOT
             MOVEM.L (A7)+,D0-D7
             RTS
 .SCORESTR   DC.B    'SCORE: ',0
+
 
 
 

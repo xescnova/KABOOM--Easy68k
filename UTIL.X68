@@ -44,7 +44,7 @@ UTLSND     MACRO
 ; OUTPUT   - D0.W=0 IF SOUND NOT PLAYED, NON ZERO IF PLAYED
 ; MODIFIES - D0,A1
 ; -----------------------------------------------------------------------------
-            LEA     \1, A1             ;PLAY EXPLOSION SOUND
+            LEA     \1, A1             
             MOVE.L  #73,D0
             TRAP    #15
             ENDM
@@ -143,6 +143,7 @@ UTLRAND
             DC.B    236, 127, 126, 3  , 207, 45 , 193, 2
             DC.B    148, 91 , 35 , 242, 139, 205, 248, 237
             DC.B    116, 51 , 236, 185, 15 , 213, 221, 6
+
 
 
 

@@ -13,6 +13,7 @@ BMNINIT
             MOVE.W  #(BMNHEIGH)-35,(BMNPOSY)
             MOVE.W  #129,(BMNDIR)
             CLR     (BMNSPEEDB)
+            MOVE.W  #9,BMNSPEED            ;INICIALIZE TEH BOMB SPEED     
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -22,7 +23,7 @@ BMNUPD
 ; OUTPUT   - NONE (MODIFIES BOMBMAN DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVE.W  (PLRSCORE),D1            
+            MOVE.W  (PLRSCORE),D1           ;CHECK IF THE PLAYER HAS 50 POINTS TO INCREASE THE BOMBMAN SPEED    
             CMP.W   #50,D1
             BNE     .SKIP
             TST.W   (BMNSPEEDB)
@@ -31,7 +32,7 @@ BMNUPD
             ADDQ.W  #5,BMNSPEED 
                                 
 .SKIP       MOVE.B  (SCRCYCCT),D1
-            AND     #$20,D1                 ; EVERY 16 CYCLES
+            AND     #$20,D1                 
             BNE     .ENDCICLE               ; NEW DIRECTION
             JSR     UTLRAND
             MOVE.W  (BMNPOSX),D1            ;BMNDIR=(BMNPOSX*128)/((SCRWIDTH)/2)
@@ -68,12 +69,11 @@ BMNPLOT
 ; -----------------------------------------------------------------------------
             MOVEM.L D0-D4,-(A7)      
             
-            ; PLOT THE BOMBMAN
+                                            ; PLOT THE BOMBMAN
             UTLSPEN #BMNSKINCL
             UTLSFIL #BMNSKINCL
-            
-            ; PLOT LEFT HAND
-            MOVE.W  (BMNPOSX),D1
+                                             
+            MOVE.W  (BMNPOSX),D1            ; PLOT LEFT HAND
             ADD.W   #5,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #75,D2
@@ -84,8 +84,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; PLOT RIGTH HAND
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; PLOT RIGTH HAND
             ADD.W   #35,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #75,D2
@@ -96,8 +95,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; PLOT NECK
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; PLOT NECK
             ADD.W   #20,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #21,D2
@@ -108,8 +106,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; PLOT HEAD
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; PLOT HEAD
             ADD.W   #15,D1
             MOVE.W  (BMNPOSY),D2
             MOVE.W  D1,D3
@@ -121,8 +118,8 @@ BMNPLOT
             
             UTLSPEN #BMNNRMCL
             UTLSFIL #BMNNRMCL
-            ; PLOT BODY
-            MOVE.W  (BMNPOSX),D1
+            
+            MOVE.W  (BMNPOSX),D1            ; PLOT BODY
             MOVE.W  (BMNPOSY),D2
             ADD.W   #25,D2
             MOVE.W  D1,D3
@@ -132,8 +129,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; PLOT BODY NECK
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; PLOT BODY NECK
             ADD.W   #10,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #23,D2
@@ -147,8 +143,8 @@ BMNPLOT
 
             UTLSPEN #BMNLINECL
             UTLSFIL #BMNLINECL
-            ; PLOT LINES
-            MOVE.W  (BMNPOSX),D1
+            
+            MOVE.W  (BMNPOSX),D1            ; PLOT LINES
             MOVE.W  (BMNPOSY),D2
             ADD.W   #25,D2
             MOVE.W  D1,D3
@@ -188,8 +184,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; PLOT ARMS
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; PLOT ARMS
             ADD.W   #9,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #35,D2
@@ -211,8 +206,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; PLOT MASK
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; PLOT MASK
             ADD.W   #13,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #5,D2
@@ -225,9 +219,8 @@ BMNPLOT
             
             UTLSPEN #BMNNRMCL
             UTLSFIL #BMNNRMCL
-            ; PLOT EYES
-            ; LEFT EYE
-            MOVE.W  (BMNPOSX),D1
+                                            ; PLOT EYES
+            MOVE.W  (BMNPOSX),D1            ; LEFT EYE
             ADD.W   #18,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #5,D2
@@ -238,8 +231,7 @@ BMNPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
-            ; RIGTH EYE
-            MOVE.W  (BMNPOSX),D1
+            MOVE.W  (BMNPOSX),D1            ; RIGTH EYE
             ADD.W   #27,D1
             MOVE.W  (BMNPOSY),D2
             ADD.W   #5,D2
@@ -253,7 +245,10 @@ BMNPLOT
             MOVEM.L (A7)+,D0-D4
             RTS
 
-*.SCORESTR   DC.B    'SCORE: ',0
+
+
+
+
 
 
 

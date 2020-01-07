@@ -11,9 +11,9 @@ STAGOVR     EQU     2                       ; GAME OVER STATE
 
 ; --- AGENT TYPES -------------------------------------------------------------
 
-SHTTYPE     EQU     1
-ASTTYPE     EQU     2
-XPLTYPE     EQU     3
+
+BOMBTYPE     EQU     2
+
 
 ; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
 
@@ -46,13 +46,7 @@ PLRPBDMG    EQU     1                       ; PLOT DAMAGE BIT
 
 PLRCLIFE    EQU     3                       ; PLAYER CONSTANT LIFE 
 
-; --- SHOT RELATED CONSTANTS --------------------------------------------------
-
-SHTWIDTH    EQU     20                      ; SHOT WIDTH (PIXELS)
-SHTHEIGH    EQU     3                       ; SHOT HEIGHT. ONLY TO DRAW.
-SHTSPEED    EQU     10                      ; SHOT SPEED (PIXELS PER INT)
-
-; --- ASTEROID RELATED CONSTANTS ----------------------------------------------
+; --- BOMB RELATED CONSTANTS ----------------------------------------------
 
 BOMBSIZE    EQU     30                      ; ASTEROID DIAMETER
 BOMBPENCL   EQU     $00000000               ; ASTEROID PEN COLOR
@@ -65,12 +59,6 @@ BOMBDMG     EQU     1                       ; ASTEROID DAMAGE TO PLAYER
 BOMBFRAG    EQU     5                       ; NUMBER OF FRAGMENTS IN EXPLOSION
 BOMBSCORE   EQU     5                       ; SCORE ASTEROID DESTRUCTION
 
-; --- EXPLOSION RELATED CONSTANTS ---------------------------------------------
-
-XPLSIZE     EQU     20                      ; EXPLOSION ITEM DIAMETER (PIXELS)
-XPLPENCL    EQU     $00DDDDDD               ; EXPLOSION ITEM PEN COLOR
-XPLFILCL    EQU     $00CCCCCC               ; EXPLOSION ITEM FIL COLOR
-
 ; --- INTRO STATE RELATED CONSTANTS -------------------------------------------
 
 INTTITX     EQU     31                      ; TITLE X COORDINATE
@@ -82,8 +70,8 @@ INTPRSC     EQU     $00FFFFFF               ; PRESS FIRE COLOR
 
 ; --- PAUSED STATE RELATED CONSTANTS -------------------------------------------
 
-PAUSTITX     EQU     25                      ; TITLE X COORDINATE
-PAUSTITY     EQU     15                       ; TITLE Y COORDINATE
+PAUSTITX     EQU     25                     ; TITLE X COORDINATE
+PAUSTITY     EQU     15                     ; TITLE Y COORDINATE
 
 
 ; --- GAME OVER STATE RELATED CONSTANTS ---------------------------------------
@@ -119,6 +107,9 @@ BMNLINEH    EQU     5                       ; BOMBMAN BLACK LINES HEIGHT
 BMNNRMCL    EQU     $00FFFFFF               ; BOMBMAN NORMAL COLOR
 BMNSKINCL   EQU     $00DCDCFF               ; BOMNMAN SKIN COLOR
 BMNLINECL   EQU     $00000000               ; BOMBMAN LINES COLOR
+
+
+
 
 
 

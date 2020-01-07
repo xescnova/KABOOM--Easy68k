@@ -184,7 +184,7 @@ STAGOVRU
             BTST.B  #4,KBDEDGE
             BEQ     .END
             LEA.L   STATES,A2               ; A0 = STATES LIST
-            MOVE.L  2*4(A2),STATE           ; UPDATES NEXT STATE
+            MOVE.L  1*4(A2),STATE           ; UPDATES NEXT STATE
             CLR.L   (GAMEOVERB)             ; CLEARS GAME OVER BIT
 .END        RTS
 .GAMEOVER DC.L 'SOUND/GAMEOVER.WAV',0 
@@ -208,6 +208,8 @@ STAGOVRP
 
 .GOVSTR     DC.B    'GAME  OVER',0
             DS.W    0
+
+
 
 
 
