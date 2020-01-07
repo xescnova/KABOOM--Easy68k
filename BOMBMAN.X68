@@ -12,6 +12,7 @@ BMNINIT
             MOVE.W  #SCRWIDTH/2,(BMNPOSX)
             MOVE.W  #(BMNHEIGH)-35,(BMNPOSY)
             MOVE.W  #129,(BMNDIR)
+            CLR     (BMNSPEEDB)
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -21,7 +22,15 @@ BMNUPD
 ; OUTPUT   - NONE (MODIFIES BOMBMAN DATA)
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
-            MOVE.B  (SCRCYCCT),D1
+            MOVE.W  (PLRSCORE),D1            
+            CMP.W   #50,D1
+            BNE     .SKIP
+            TST.W   (BMNSPEEDB)
+            BNE     .SKIP
+            MOVE.B  #1,(BMNSPEEDB)
+            ADDQ.W  #5,BMNSPEED 
+                                
+.SKIP       MOVE.B  (SCRCYCCT),D1
             AND     #$20,D1                 ; EVERY 16 CYCLES
             BNE     .ENDCICLE               ; NEW DIRECTION
             JSR     UTLRAND
@@ -36,12 +45,14 @@ BMNUPD
 .ENDCICLE                                    
             CMP.W   (BMNDIR),D0
             BGE     .CHKRT
-            SUB.W   #BMNSPEED,(BMNPOSX)
+            MOVE.W BMNSPEED,D3
+            SUB.W   D3,(BMNPOSX)
             TST.W   (BMNPOSX)
             BGE     .END
             CLR.W   (BMNPOSX)
             JMP     .END
-.CHKRT      ADD.W   #BMNSPEED,(BMNPOSX)
+.CHKRT      MOVE.W BMNSPEED,D3
+            ADD.W   D3,BMNPOSX
             CMP     #SCRWIDTH-BMNWIDTH,(BMNPOSX)
             BLE     .END
             MOVE.W  #SCRWIDTH-BMNWIDTH,(BMNPOSX)
@@ -243,6 +254,8 @@ BMNPLOT
             RTS
 
 *.SCORESTR   DC.B    'SCORE: ',0
+
+
 
 
 

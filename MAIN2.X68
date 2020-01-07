@@ -17,7 +17,6 @@
             INCLUDE "AGENTLST.X68"          ; AGENT LIST MANAGEMENT
             INCLUDE "BOMB.X68"              ; BOMB AGENT MANAGEMENT
             INCLUDE "SPAWNER.X68"           ; SPAWNER (CREATES ASTEROIDS)
-            INCLUDE "XPLOSION.X68"          ; EXPLOSION AGENT MANAGEMENT
             INCLUDE "BACKGROUND.X68"        ; BACKGROUND MANAGEMENT
             INCLUDE "STATES.X68"            ; GAME STATES MANAGEMENT
             ; TO DO: PUT YOUR GAME-RELATED INCLUDES HERE
@@ -75,6 +74,7 @@ START       JSR     SYSINIT
             INCLUDE "SYSVAR.X68"
             INCLUDE "VAR.X68"
             END    START
+
 
 
 *~Font name~Courier New~

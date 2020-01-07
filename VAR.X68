@@ -44,11 +44,15 @@ BMNPOSX     DS.W    1                       ; BOMBMAN X POSITION  (PIXELS)
 BMNPOSY     DS.W    1                       ; BOMBMAN Y POSITION  (PIXELS)
 BMNDIR      DS.W    1                       ; BOMBMAN DIRECTION 
                                             ; RIGHT > #128  LEFT < #128 
+BMNSPEED    DC.W    9                      ; BOMBMAN SPEED (PIXELS PER INT)
+BMNSPEEDB   DS.W    1                       ;SPEED BYTE 1-ABLE SPEED ADD
 
 ; --- UTILITY VARIABLES ------------------------------------------------------
 
 UTLRNDIX    DS.B    1                       ; NEXT INDEX TO RANDOM NUMBER
             DS.W    0
+
+
 
 
 

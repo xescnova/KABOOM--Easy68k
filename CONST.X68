@@ -29,7 +29,7 @@ BCKGRCL     EQU     $000E6800               ; GROUND COLOR
 PLRWIDTH    EQU     55                      ; PLAYER WIDTH (PIXELS)
 PLRHEIGH    EQU     20                      ; PLAYER HEIGHT (PIXELS)
 PLRINIEN    EQU     500                     ; PLAYER INITIAL ENERGY (<SCRWIDTH)
-PLRSPEED    EQU     10                      ; PLAYER SPEED (PIXELS PER INT)
+PLRSPEED    EQU     13                      ; PLAYER SPEED (PIXELS PER INT)
 PLRNRMCL    EQU     $00696969               ; PLAYER NORMAL COLOR
 PLRWTRCL    EQU     $00FF8000               ; PLAYER WATER COLOR
 PLRDMGCL    EQU     $000000FF               ; PLAYER DAMAGED COLOR
@@ -116,10 +116,11 @@ BMNPUPILW   EQU     1                       ; BOMBMAN PUPIL WIDTH
 BMNPUPILH   EQU     1                       ; BOMBMAN PUPIL HEIGHT
 BMNLINEW    EQU     50                      ; BOMBMAN BLACK LINES WIDTH
 BMNLINEH    EQU     5                       ; BOMBMAN BLACK LINES HEIGHT
-BMNSPEED    EQU     9                       ; BOMBMAN SPEED (PIXELS PER INT)
 BMNNRMCL    EQU     $00FFFFFF               ; BOMBMAN NORMAL COLOR
 BMNSKINCL   EQU     $00DCDCFF               ; BOMNMAN SKIN COLOR
 BMNLINECL   EQU     $00000000               ; BOMBMAN LINES COLOR
+
+
 
 
 

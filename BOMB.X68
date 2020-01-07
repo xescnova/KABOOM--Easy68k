@@ -74,7 +74,7 @@ BOMBPLOT
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
- UTLSPEN #BOMBPENCL
+            UTLSPEN #BOMBPENCL
             UTLSFIL #BOMBFILCL
             ;DRAW ELIPSE
             MOVEM.W D1-D6,-(A7)
@@ -149,28 +149,9 @@ BOMBPLOT
             RTS
 
 
-; -----------------------------------------------------------------------------
-BOMBXPLO
-; EXPLODES A BOMB 
-; INPUT    - A0 POINTER TO THE LOCAL MEMORY
-; OUTPUT   - NONE
-; MODIFIES - NONE
-; -----------------------------------------------------------------------------
-            MOVEM.L A1-A3/D0-D4,-(A7)
-            MOVE.W  #BOMBFRAG,D4
-.LOOP       LEA     XPLINIT,A1
-            LEA     XPLUPD,A2
-            LEA     XPLPLOT,A3
-            MOVE.W  #XPLTYPE,D0
-            MOVE.W  (A0),D1
-            ADD.W   #BOMBSIZE/2,D1
-            MOVE.W  2(A0),D2
-            ADD.W   #BOMBSIZE/2,D2
-            JSR     AGLADD
-            DBRA.W  D4,.LOOP
-            JSR     AGLKILL
-            MOVEM.L (A7)+,A1-A3/D0-D4
-            RTS
+
+
+
 
 
 
